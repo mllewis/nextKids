@@ -1,0 +1,681 @@
+definition,aoa,category,lexical_category,lexical_class,uni_lemma
+a,26.54606442,quantifiers,function_words,function_words,a
+a lot,28.18563043,quantifiers,function_words,function_words,a lot
+about,31.78603182,locations,function_words,function_words,about
+above,31.90016734,locations,function_words,function_words,above
+after,28.49021047,time_words,other,other,after
+airplane,19.73577377,vehicles,nouns,nouns,airplane
+all,26.00096597,quantifiers,function_words,function_words,all
+all gone,18.55811433,descriptive_words,predicates,adjectives,all gone
+alligator,24.70700023,animals,nouns,nouns,alligator
+am,28.29937426,helping_verbs,function_words,function_words,am
+an,33.09479884,quantifiers,function_words,function_words,an
+and,26.57007996,connecting_words,function_words,function_words,and
+animal,23.63597963,animals,nouns,nouns,animal
+ankle,29.44079719,body_parts,nouns,nouns,ankle
+another,27.33268909,quantifiers,function_words,function_words,another
+ant,24.12172168,animals,nouns,nouns,ant
+any,28.74648002,quantifiers,function_words,function_words,any
+apple,17.81235778,food_drink,nouns,nouns,apple
+applesauce,24.60484699,food_drink,nouns,nouns,applesauce
+are,28.72017885,helping_verbs,function_words,function_words,are
+arm,21.27554567,body_parts,nouns,nouns,arm
+around,28.79040235,locations,function_words,function_words,around
+asleep,24.02349718,descriptive_words,predicates,adjectives,asleep
+at,27.67506658,locations,function_words,function_words,at
+aunt,25.05113257,people,other,other,aunt
+awake,25.31605772,descriptive_words,predicates,adjectives,awake
+away,26.13999933,locations,function_words,function_words,away
+baa baa,15.75268236,sounds,other,other,baa baa
+baby,15.36150969,people,other,other,baby
+babysitter,30.25428237,people,other,other,babysitter
+babysitter's name,24.39419701,people,other,other,babysitter's name
+back,25.59412822,locations,function_words,function_words,back
+backyard,26.41409814,outside,nouns,nouns,backyard
+bad,24.30348689,descriptive_words,predicates,adjectives,bad
+ball,11.72606605,toys,nouns,nouns,ball
+balloon,16.64607583,toys,nouns,nouns,balloon
+banana,15.64679331,food_drink,nouns,nouns,banana
+basement,31.73235072,furniture_rooms,nouns,nouns,basement
+basket,24.64539619,household,nouns,nouns,basket
+bat,25.420428,toys,nouns,nouns,bat
+bath,17.66022614,games_routines,other,other,bath
+bathroom,22.88970014,furniture_rooms,nouns,nouns,bathroom
+bathtub,21.59165313,furniture_rooms,nouns,nouns,bathtub
+be,29.69434601,helping_verbs,function_words,function_words,be
+beach,26.0894423,places,other,other,beach
+beads,28.52510339,clothing,nouns,nouns,beads
+beans,23.78792106,food_drink,nouns,nouns,beans
+bear,18.58329839,animals,nouns,nouns,bear
+because,29.59261938,connecting_words,function_words,function_words,because
+bed,20.01473877,furniture_rooms,nouns,nouns,bed
+bedroom,24.62343357,furniture_rooms,nouns,nouns,bedroom
+bee,20.61537419,animals,nouns,nouns,bee
+before,30.72190263,time_words,other,other,before
+behind,28.2402278,locations,function_words,function_words,behind
+belly button,19.92017625,body_parts,nouns,nouns,belly button
+belt,25.37815483,clothing,nouns,nouns,belt
+bench,29.95054136,furniture_rooms,nouns,nouns,bench
+beside,32.41255171,locations,function_words,function_words,beside
+better,26.34420665,descriptive_words,predicates,adjectives,better
+bib,22.95107857,clothing,nouns,nouns,bib
+bicycle,21.26515076,vehicles,nouns,nouns,bicycle
+big,21.81103143,descriptive_words,predicates,adjectives,big
+bird,16.41656806,animals,nouns,nouns,bird
+bite,21.61441041,action_words,predicates,verbs,bite
+black,25.3015207,descriptive_words,predicates,adjectives,black
+blanket,20.10402188,household,nouns,nouns,blanket
+block,21.10586516,toys,nouns,nouns,block
+blow,23.38672583,action_words,predicates,verbs,blow
+blue,22.30224129,descriptive_words,predicates,adjectives,blue
+boat,20.31393677,vehicles,nouns,nouns,boat
+book,15.48964016,toys,nouns,nouns,book
+boots,21.8907462,clothing,nouns,nouns,boots
+bottle,18.19357989,household,nouns,nouns,bottle
+bowl,22.1159843,household,nouns,nouns,bowl
+box,21.70038998,household,nouns,nouns,box
+boy,22.69400872,people,other,other,boy
+bread,21.1930785,food_drink,nouns,nouns,bread
+break,24.07169106,action_words,predicates,verbs,break
+breakfast,23.53670636,games_routines,other,other,breakfast
+bring,26.00633206,action_words,predicates,verbs,bring
+broken,22.83476723,descriptive_words,predicates,adjectives,broken
+broom,23.24405304,household,nouns,nouns,broom
+brother,26.76335899,people,other,other,brother
+brown,26.09345366,descriptive_words,predicates,adjectives,brown
+brush,21.43046065,household,nouns,nouns,brush
+bubbles,17.7801024,toys,nouns,nouns,bubbles
+bucket,25.345939,household,nouns,nouns,bucket
+bug,20.86539077,animals,nouns,nouns,bug
+build,26.54263435,action_words,predicates,verbs,build
+bump,25.26050007,action_words,predicates,verbs,bump
+bunny,19.91753913,animals,nouns,nouns,bunny
+bus,20.54833118,vehicles,nouns,nouns,bus
+but,30.98564896,connecting_words,function_words,function_words,but
+butter,23.77403504,food_drink,nouns,nouns,butter
+butterfly,22.49640185,animals,nouns,nouns,butterfly
+buttocks/bottom*,21.56526776,body_parts,nouns,nouns,buttocks
+button,21.78163152,clothing,nouns,nouns,button
+buy,26.71865088,action_words,predicates,verbs,buy
+by,28.21687918,locations,function_words,function_words,by
+bye,11.7548037,games_routines,other,other,bye
+cake,21.55129132,food_drink,nouns,nouns,cake
+call (on phone),23.04635193,games_routines,other,other,call (on phone)
+camera,24.79388437,household,nouns,nouns,camera
+camping,30.79401924,places,other,other,camping
+can (auxiliary),26.77007334,helping_verbs,function_words,function_words,can (auxiliary)
+can (object),26.64594476,household,nouns,nouns,can (object)
+candy,21.97623732,food_drink,nouns,nouns,candy
+car,17.10670528,vehicles,nouns,nouns,car
+careful,25.4282907,descriptive_words,predicates,adjectives,careful
+carrots,23.20004314,food_drink,nouns,nouns,carrots
+carry,24.75947302,action_words,predicates,verbs,carry
+cat,17.28150215,animals,nouns,nouns,cat
+catch,24.7499977,action_words,predicates,verbs,catch
+cereal,21.5770545,food_drink,nouns,nouns,cereal
+chair,20.44763406,furniture_rooms,nouns,nouns,chair
+chalk,26.60574004,toys,nouns,nouns,chalk
+chase,27.42834793,action_words,predicates,verbs,chase
+cheek,22.67992821,body_parts,nouns,nouns,cheek
+cheerios,23.03370816,food_drink,nouns,nouns,cheerios
+cheese,17.70913648,food_drink,nouns,nouns,cheese
+chicken (animal),22.16241939,animals,nouns,nouns,chicken (animal)
+chicken (food),22.02974773,food_drink,nouns,nouns,chicken (food)
+child,30.9959007,people,other,other,child
+child's own name,19.42206321,people,other,other,child's own name
+chin,23.21787502,body_parts,nouns,nouns,chin
+chocolate,24.32791892,food_drink,nouns,nouns,chocolate
+choo choo,18.97649371,sounds,other,other,choo choo
+church*,26.49115296,places,other,other,church
+circus,29.66351803,places,other,other,circus
+clap,22.99616787,action_words,predicates,verbs,clap
+clean (action),23.39683895,action_words,predicates,verbs,clean (action)
+clean (description),23.07992888,descriptive_words,predicates,adjectives,clean (description)
+climb,24.9357836,action_words,predicates,verbs,climb
+clock,22.38716457,household,nouns,nouns,clock
+close,23.8870624,action_words,predicates,verbs,close
+closet,25.4473131,furniture_rooms,nouns,nouns,closet
+cloud,24.80807327,outside,nouns,nouns,cloud
+clown,26.61407566,people,other,other,clown
+coat,22.01510229,clothing,nouns,nouns,coat
+cockadoodledoo,24.57861567,sounds,other,other,cockadoodledoo
+coffee,24.0930075,food_drink,nouns,nouns,coffee
+coke,27.63622021,food_drink,nouns,nouns,coke
+cold,20.5373939,descriptive_words,predicates,adjectives,cold
+comb,24.1926503,household,nouns,nouns,comb
+cook,24.39870091,action_words,predicates,verbs,cook
+cookie,17.57950855,food_drink,nouns,nouns,cookie
+corn,23.32388052,food_drink,nouns,nouns,corn
+couch,23.83365994,furniture_rooms,nouns,nouns,couch
+could,31.65950682,helping_verbs,function_words,function_words,could
+country,33.55497681,places,other,other,country
+cover,26.86833909,action_words,predicates,verbs,cover
+cow,19.63397325,animals,nouns,nouns,cow
+cowboy,29.53512283,people,other,other,cowboy
+cracker,18.56509653,food_drink,nouns,nouns,cracker
+crayon,22.39887147,toys,nouns,nouns,crayon
+crib,24.87765655,furniture_rooms,nouns,nouns,crib
+cry,22.61199048,action_words,predicates,verbs,cry
+cup,19.09066611,household,nouns,nouns,cup
+cut,25.62174381,action_words,predicates,verbs,cut
+cute,26.59595052,descriptive_words,predicates,adjectives,cute
+daddy*,-1.262244121,people,other,other,daddy
+dance,22.81970522,action_words,predicates,verbs,dance
+dark,25.10517407,descriptive_words,predicates,adjectives,dark
+day,27.73635307,time_words,other,other,day
+deer,26.02419048,animals,nouns,nouns,deer
+diaper,18.96768565,clothing,nouns,nouns,diaper
+did/did ya,27.28409205,helping_verbs,function_words,function_words,did
+dinner,23.78490442,games_routines,other,other,dinner
+dirty,21.62746454,descriptive_words,predicates,adjectives,dirty
+dish,26.54991099,household,nouns,nouns,dish
+do,24.0428096,helping_verbs,function_words,function_words,do
+doctor,24.0515664,people,other,other,doctor
+does,29.99540867,helping_verbs,function_words,function_words,does
+dog,12.79126978,animals,nouns,nouns,dog
+doll,21.49793233,toys,nouns,nouns,doll
+don't,25.29129005,helping_verbs,function_words,function_words,don't
+donkey,27.66212321,animals,nouns,nouns,donkey
+donut,25.77034672,food_drink,nouns,nouns,donut
+door,19.65896302,furniture_rooms,nouns,nouns,door
+down,19.28029676,locations,function_words,function_words,down
+downtown,31.78046526,places,other,other,downtown
+draw,24.7877011,action_words,predicates,verbs,draw
+drawer,26.54946294,furniture_rooms,nouns,nouns,drawer
+dress (object),24.74485534,clothing,nouns,nouns,dress (object)
+drink (action),20.66995484,action_words,predicates,verbs,drink (action)
+drink (beverage),20.63997243,food_drink,nouns,nouns,drink (beverage)
+drive,24.2581205,action_words,predicates,verbs,drive
+drop,25.16574573,action_words,predicates,verbs,drop
+dry (action),25.63889091,action_words,predicates,verbs,dry (action)
+dry (description),25.36280429,descriptive_words,predicates,adjectives,dry (description)
+dryer,27.23513089,furniture_rooms,nouns,nouns,dryer
+duck,16.37416298,animals,nouns,nouns,duck
+dump,28.85083143,action_words,predicates,verbs,dump
+each,33.52488614,quantifiers,function_words,function_words,each
+ear,17.37214154,body_parts,nouns,nouns,ear
+eat,19.74288657,action_words,predicates,verbs,eat
+egg,21.47152641,food_drink,nouns,nouns,egg
+elephant,22.09923652,animals,nouns,nouns,elephant
+empty,25.75935262,descriptive_words,predicates,adjectives,empty
+every,31.02152264,quantifiers,function_words,function_words,every
+eye,16.77029498,body_parts,nouns,nouns,eye
+face,23.09990146,body_parts,nouns,nouns,face
+fall,22.75422497,action_words,predicates,verbs,fall
+farm,27.20873755,places,other,other,farm
+fast,25.10362898,descriptive_words,predicates,adjectives,fast
+feed,25.95257422,action_words,predicates,verbs,feed
+find,24.83599307,action_words,predicates,verbs,find
+fine,29.35178108,descriptive_words,predicates,adjectives,fine
+finger,21.02290809,body_parts,nouns,nouns,finger
+finish,27.37217742,action_words,predicates,verbs,finish
+fireman,27.09636252,people,other,other,fireman
+firetruck,23.58192118,vehicles,nouns,nouns,firetruck
+first,27.49357581,descriptive_words,predicates,adjectives,first
+fish (animal),18.57089209,animals,nouns,nouns,fish (animal)
+fish (food),21.55851962,food_drink,nouns,nouns,fish (food)
+fit,27.79350849,action_words,predicates,verbs,fit
+fix,24.23936016,action_words,predicates,verbs,fix
+flag,25.54151194,outside,nouns,nouns,flag
+flower,20.1382,outside,nouns,nouns,flower
+food,22.8365991,food_drink,nouns,nouns,food
+foot,20.67081198,body_parts,nouns,nouns,foot
+for,27.86281807,locations,function_words,function_words,for
+fork,21.24142374,household,nouns,nouns,fork
+french fries,22.32817093,food_drink,nouns,nouns,french fries
+friend,26.04786822,people,other,other,friend
+frog,21.51069824,animals,nouns,nouns,frog
+full,26.29134793,descriptive_words,predicates,adjectives,full
+game,25.5088786,toys,nouns,nouns,game
+garage,25.75858232,furniture_rooms,nouns,nouns,garage
+garbage,25.62286412,household,nouns,nouns,garbage
+garden,28.11774801,outside,nouns,nouns,garden
+gas station,27.89298746,places,other,other,gas station
+gentle,27.49570119,descriptive_words,predicates,adjectives,gentle
+get,23.40855627,action_words,predicates,verbs,get
+giraffe,23.80614315,animals,nouns,nouns,giraffe
+girl,23.37032521,people,other,other,girl
+give,24.9827872,action_words,predicates,verbs,give
+give me five!,24.66403858,games_routines,other,other,give me five
+glass,24.75127001,household,nouns,nouns,glass
+glasses,22.75646843,household,nouns,nouns,glasses
+gloves,26.49563159,clothing,nouns,nouns,gloves
+glue,28.36811601,toys,nouns,nouns,glue
+go,18.94338151,action_words,predicates,verbs,go
+go potty,22.05065383,games_routines,other,other,go potty
+gonna get you!,24.05856187,games_routines,other,other,gonna get you
+gonna/going to,26.93995382,helping_verbs,function_words,function_words,gonna
+good,23.25900337,descriptive_words,predicates,adjectives,good
+goose,26.27267615,animals,nouns,nouns,goose
+gotta/got to,29.77875156,helping_verbs,function_words,function_words,gotta
+grandma*,17.18522884,people,other,other,grandma
+grandpa*,18.27375714,people,other,other,grandpa
+grapes,21.46847016,food_drink,nouns,nouns,grapes
+grass,22.76940301,outside,nouns,nouns,grass
+green,23.68620007,descriptive_words,predicates,adjectives,green
+green beans,26.71523702,food_drink,nouns,nouns,green beans
+grrr,14.90953475,sounds,other,other,grrr
+gum,26.39678633,food_drink,nouns,nouns,gum
+hafta/have to,28.4175222,helping_verbs,function_words,function_words,hafta
+hair,19.16575939,body_parts,nouns,nouns,hair
+hamburger,24.18009824,food_drink,nouns,nouns,hamburger
+hammer,25.14148722,household,nouns,nouns,hammer
+hand,20.58293577,body_parts,nouns,nouns,hand
+happy,23.56495828,descriptive_words,predicates,adjectives,happy
+hard,26.84561663,descriptive_words,predicates,adjectives,hard
+hat,18.11770527,clothing,nouns,nouns,hat
+hate,31.97725101,action_words,predicates,verbs,hate
+have,25.22887585,action_words,predicates,verbs,have
+he,27.28977546,pronouns,function_words,function_words,he
+head,21.03194043,body_parts,nouns,nouns,head
+hear,26.10268917,action_words,predicates,verbs,hear
+heavy,24.26153129,descriptive_words,predicates,adjectives,heavy
+helicopter,24.24928268,vehicles,nouns,nouns,helicopter
+hello,17.54394216,games_routines,other,other,hello
+help,22.13727898,action_words,predicates,verbs,help
+hen,28.88521108,animals,nouns,nouns,hen
+her,28.79083994,pronouns,function_words,function_words,her
+here,24.37320129,locations,function_words,function_words,here
+hers,30.30139311,pronouns,function_words,function_words,hers
+hi,13.42448383,games_routines,other,other,hi
+hide,24.62267471,action_words,predicates,verbs,hide
+high,25.75146826,descriptive_words,predicates,adjectives,high
+high chair,25.04598585,furniture_rooms,nouns,nouns,high chair
+him,28.95983314,pronouns,function_words,function_words,him
+his,29.33989906,pronouns,function_words,function_words,his
+hit,23.72836762,action_words,predicates,verbs,hit
+hold,24.44457644,action_words,predicates,verbs,hold
+home,20.98918667,places,other,other,home
+horse,20.06142457,animals,nouns,nouns,horse
+hose,26.27496968,outside,nouns,nouns,hose
+hot,16.96707446,descriptive_words,predicates,adjectives,hot
+house,22.09052034,places,other,other,house
+how,29.07978662,question_words,function_words,function_words,how
+hug,21.25610045,action_words,predicates,verbs,hug
+hungry,23.67369845,descriptive_words,predicates,adjectives,hungry
+hurry,26.40099923,action_words,predicates,verbs,hurry
+hurt,23.82824502,descriptive_words,predicates,adjectives,hurt
+i,23.3918302,pronouns,function_words,function_words,I
+ice,22.10612103,food_drink,nouns,nouns,ice
+ice cream,21.410079,food_drink,nouns,nouns,ice cream
+if,32.67135071,connecting_words,function_words,function_words,if
+inside/in,23.22797238,locations,function_words,function_words,inside
+into,30.40458229,locations,function_words,function_words,into
+is,27.42835207,helping_verbs,function_words,function_words,is
+it,25.62124847,pronouns,function_words,function_words,it
+jacket,23.13549173,clothing,nouns,nouns,jacket
+jar,28.24568689,household,nouns,nouns,jar
+jeans,26.90629243,clothing,nouns,nouns,jeans
+jello,27.34706177,food_drink,nouns,nouns,jello
+jelly,25.78723176,food_drink,nouns,nouns,jelly
+juice,16.91973985,food_drink,nouns,nouns,juice
+jump,22.40110919,action_words,predicates,verbs,jump
+keys,20.69083436,household,nouns,nouns,keys
+kick,23.84676314,action_words,predicates,verbs,kick
+kiss,20.65216231,action_words,predicates,verbs,kiss
+kitchen,23.33417662,furniture_rooms,nouns,nouns,kitchen
+kitty,16.9096043,animals,nouns,nouns,kitty
+knee,22.00214651,body_parts,nouns,nouns,knee
+knife,24.3920661,household,nouns,nouns,knife
+knock,24.9965464,action_words,predicates,verbs,knock
+ladder,26.39592865,outside,nouns,nouns,ladder
+lady,26.87991106,people,other,other,lady
+lamb,25.88234158,animals,nouns,nouns,lamb
+lamp,27.10273574,household,nouns,nouns,lamp
+last,30.60072778,descriptive_words,predicates,adjectives,last
+later,27.03906713,time_words,other,other,later
+lawn mower,26.18243281,outside,nouns,nouns,lawn mower
+leg,22.3616983,body_parts,nouns,nouns,leg
+lemme/let me,25.73477246,helping_verbs,function_words,function_words,lemme
+lick,26.73348463,action_words,predicates,verbs,lick
+light,19.84192959,household,nouns,nouns,light
+like,25.16175617,action_words,predicates,verbs,like
+lion,22.42628521,animals,nouns,nouns,lion
+lips,24.64481085,body_parts,nouns,nouns,lips
+listen,27.28564799,action_words,predicates,verbs,listen
+little (description),24.6779294,descriptive_words,predicates,adjectives,little (description)
+living room,26.73805649,furniture_rooms,nouns,nouns,living room
+lollipop,26.87558991,food_drink,nouns,nouns,lollipop
+long,28.74629728,descriptive_words,predicates,adjectives,long
+look,23.32834432,action_words,predicates,verbs,look
+loud,25.75800681,descriptive_words,predicates,adjectives,loud
+love,22.49974795,action_words,predicates,verbs,love
+lunch,23.75105069,games_routines,other,other,lunch
+mad,27.33864261,descriptive_words,predicates,adjectives,mad
+mailman,27.73046181,people,other,other,mailman
+make,25.82797445,action_words,predicates,verbs,make
+man,24.69785258,people,other,other,man
+me,21.51038891,pronouns,function_words,function_words,me
+meat,25.1852409,food_drink,nouns,nouns,meat
+medicine,23.56303739,household,nouns,nouns,medicine
+melon,27.27939154,food_drink,nouns,nouns,melon
+meow,15.86559447,sounds,other,other,meow
+milk,17.81659472,food_drink,nouns,nouns,milk
+mine,19.34613937,pronouns,function_words,function_words,mine
+mittens,27.24592023,clothing,nouns,nouns,mittens
+mommy*,-0.893203873,people,other,other,mommy
+money,22.81726048,household,nouns,nouns,money
+monkey,20.8746111,animals,nouns,nouns,monkey
+moo,14.93029226,sounds,other,other,moo
+moon,20.23802718,outside,nouns,nouns,moon
+moose,28.7235527,animals,nouns,nouns,moose
+mop,28.50343036,household,nouns,nouns,mop
+more,19.42792968,quantifiers,function_words,function_words,more
+morning,26.13509948,time_words,other,other,morning
+motorcycle,24.6760278,vehicles,nouns,nouns,motorcycle
+mouse,22.39704718,animals,nouns,nouns,mouse
+mouth,19.7642835,body_parts,nouns,nouns,mouth
+movie,26.39817156,places,other,other,movie
+much,30.13932078,quantifiers,function_words,function_words,much
+muffin,25.61275194,food_drink,nouns,nouns,muffin
+my,24.13422439,pronouns,function_words,function_words,my
+myself,29.17728355,pronouns,function_words,function_words,myself
+nail,27.22210409,household,nouns,nouns,nail
+nap,22.05503256,games_routines,other,other,nap
+napkin,23.9758054,household,nouns,nouns,napkin
+naughty,31.8966422,descriptive_words,predicates,adjectives,naughty
+necklace,25.03493432,clothing,nouns,nouns,necklace
+need/need to,27.26096307,helping_verbs,function_words,function_words,need
+new,27.17350089,descriptive_words,predicates,adjectives,new
+next to,29.71785969,locations,function_words,function_words,next to
+nice,24.81414884,descriptive_words,predicates,adjectives,nice
+night,23.91580124,time_words,other,other,night
+night night,17.20624446,games_routines,other,other,good night
+no,13.82891185,games_routines,other,other,no
+noisy,27.368254,descriptive_words,predicates,adjectives,noisy
+none,30.33907377,quantifiers,function_words,function_words,none
+noodles,23.22561853,food_drink,nouns,nouns,noodles
+nose,16.89319139,body_parts,nouns,nouns,nose
+not,26.98067269,quantifiers,function_words,function_words,not
+now,24.78532994,time_words,other,other,now
+nurse,31.08587108,people,other,other,nurse
+nuts,26.74085824,food_drink,nouns,nouns,nuts
+of,31.03614023,locations,function_words,function_words,of
+off,20.98223394,locations,function_words,function_words,off
+old,28.4047845,descriptive_words,predicates,adjectives,old
+on,21.26595124,locations,function_words,function_words,on
+on top of,28.23237921,locations,function_words,function_words,on top of
+open,21.41611049,action_words,predicates,verbs,open
+orange (description),23.7010476,descriptive_words,predicates,adjectives,orange (description)
+orange (food),22.16659747,food_drink,nouns,nouns,orange (food)
+other,27.8141582,quantifiers,function_words,function_words,other
+ouch,16.93805505,sounds,other,other,ouch
+our,30.16928078,pronouns,function_words,function_words,our
+out,21.55378823,locations,function_words,function_words,out
+outside,19.38669865,places,other,other,outside
+oven,26.07926951,furniture_rooms,nouns,nouns,oven
+over,26.60825903,locations,function_words,function_words,over
+owie/boo boo,18.81251015,body_parts,nouns,nouns,owie
+owl,23.27922443,animals,nouns,nouns,owl
+paint,25.55184307,action_words,predicates,verbs,paint
+pajamas,22.72797815,clothing,nouns,nouns,pajamas
+pancake,23.66023515,food_drink,nouns,nouns,pancake
+pants,21.59333006,clothing,nouns,nouns,pants
+paper,22.08699834,household,nouns,nouns,paper
+park,22.53779161,places,other,other,park
+party,25.16322093,places,other,other,party
+pattycake,24.92993197,games_routines,other,other,pattycake
+peanut butter,24.02197338,food_drink,nouns,nouns,peanut butter
+peas,23.97987564,food_drink,nouns,nouns,peas
+peekaboo,18.65252704,games_routines,other,other,peekaboo
+pen,23.19393565,toys,nouns,nouns,pen
+pencil,24.56394848,toys,nouns,nouns,pencil
+penguin,26.33382573,animals,nouns,nouns,penguin
+penis*,25.92387122,body_parts,nouns,nouns,penis
+penny,25.91324464,household,nouns,nouns,penny
+people,26.38497302,people,other,other,people
+person,31.27120549,people,other,other,person
+pet's name,20.94206629,people,other,other,pet's name
+pick,27.32791858,action_words,predicates,verbs,pick
+pickle,25.46536753,food_drink,nouns,nouns,pickle
+picnic,27.86188174,places,other,other,picnic
+picture,23.43850807,household,nouns,nouns,picture
+pig,20.47164084,animals,nouns,nouns,pig
+pillow,21.85647752,household,nouns,nouns,pillow
+pizza,20.9911161,food_drink,nouns,nouns,pizza
+plant,25.8282728,household,nouns,nouns,plant
+plate,23.22614232,household,nouns,nouns,plate
+play,22.15095555,action_words,predicates,verbs,play
+play dough,26.17903245,toys,nouns,nouns,play dough
+play pen,32.20186354,furniture_rooms,nouns,nouns,play pen
+playground,27.07858754,places,other,other,playground
+please,18.46736725,games_routines,other,other,please
+police,27.79487416,people,other,other,police
+pony,27.06883606,animals,nouns,nouns,pony
+pool,23.08448209,outside,nouns,nouns,pool
+poor,32.12953827,descriptive_words,predicates,adjectives,poor
+popcorn,23.25627474,food_drink,nouns,nouns,popcorn
+popsicle,24.97502992,food_drink,nouns,nouns,popsicle
+porch,29.09589637,furniture_rooms,nouns,nouns,porch
+potato,24.61674373,food_drink,nouns,nouns,potato
+potato chip,23.71745441,food_drink,nouns,nouns,potato chip
+potty,20.43958654,furniture_rooms,nouns,nouns,potty
+pour,27.04310278,action_words,predicates,verbs,pour
+present,24.60427056,toys,nouns,nouns,present
+pretend,29.36606161,action_words,predicates,verbs,pretend
+pretty,23.96894197,descriptive_words,predicates,adjectives,pretty
+pretzel,25.41979393,food_drink,nouns,nouns,pretzel
+pudding,28.04237484,food_drink,nouns,nouns,pudding
+pull,25.36865481,action_words,predicates,verbs,pull
+pumpkin,24.77013096,food_drink,nouns,nouns,pumpkin
+puppy,20.26771691,animals,nouns,nouns,puppy
+purse,24.1889212,household,nouns,nouns,purse
+push,23.96411297,action_words,predicates,verbs,push
+put,25.93300597,action_words,predicates,verbs,put
+puzzle,23.68363611,toys,nouns,nouns,puzzle
+quack quack,16.87098485,sounds,other,other,quack quack
+quiet,25.84591624,descriptive_words,predicates,adjectives,quiet
+radio,26.52237843,household,nouns,nouns,radio
+rain,21.5461027,outside,nouns,nouns,rain
+raisin,23.32686135,food_drink,nouns,nouns,raisin
+read,21.97647862,action_words,predicates,verbs,read
+red,23.36198631,descriptive_words,predicates,adjectives,red
+refrigerator,25.09775318,furniture_rooms,nouns,nouns,refrigerator
+ride,23.42043204,action_words,predicates,verbs,ride
+rip,29.7719873,action_words,predicates,verbs,rip
+rock,21.55980745,outside,nouns,nouns,rock
+rocking chair,25.90270213,furniture_rooms,nouns,nouns,rocking chair
+roof,27.97861295,outside,nouns,nouns,roof
+room,24.01371323,furniture_rooms,nouns,nouns,room
+rooster,26.72930984,animals,nouns,nouns,rooster
+run,22.96110601,action_words,predicates,verbs,run
+sad,25.63085703,descriptive_words,predicates,adjectives,sad
+salt,27.5722588,food_drink,nouns,nouns,salt
+same,29.88082505,quantifiers,function_words,function_words,same
+sandbox,26.52387001,outside,nouns,nouns,sandbox
+sandwich,24.1150122,food_drink,nouns,nouns,sandwich
+sauce,27.51581957,food_drink,nouns,nouns,sauce
+say,26.49269435,action_words,predicates,verbs,say
+scared,25.74497068,descriptive_words,predicates,adjectives,scared
+scarf,30.8686805,clothing,nouns,nouns,scarf
+school,22.98742473,places,other,other,school
+scissors,25.02221214,household,nouns,nouns,scissors
+see,22.25218357,action_words,predicates,verbs,see
+shake,26.51320196,action_words,predicates,verbs,shake
+share,25.72907092,action_words,predicates,verbs,share
+she,28.21819798,pronouns,function_words,function_words,she
+sheep,22.79360109,animals,nouns,nouns,sheep
+shh/shush/hush,18.13059075,games_routines,other,other,shh
+shirt,21.10118367,clothing,nouns,nouns,shirt
+shoe,15.50740129,clothing,nouns,nouns,shoe
+shopping,25.08235271,games_routines,other,other,shopping
+shorts,24.25154838,clothing,nouns,nouns,shorts
+shoulder,26.54795056,body_parts,nouns,nouns,shoulder
+shovel,25.32789317,outside,nouns,nouns,shovel
+show,26.48375822,action_words,predicates,verbs,show
+shower,23.30660843,furniture_rooms,nouns,nouns,shower
+sick,25.77455562,descriptive_words,predicates,adjectives,sick
+sidewalk,26.83544359,outside,nouns,nouns,sidewalk
+sing,23.79497959,action_words,predicates,verbs,sing
+sink,24.73880597,furniture_rooms,nouns,nouns,sink
+sister,26.54387909,people,other,other,sister
+sit,21.32521546,action_words,predicates,verbs,sit
+skate,29.54929115,action_words,predicates,verbs,skate
+sky,23.58632412,outside,nouns,nouns,sky
+sled,29.5445282,vehicles,nouns,nouns,sled
+sleep,22.29161253,action_words,predicates,verbs,sleep
+sleepy,24.67786081,descriptive_words,predicates,adjectives,sleepy
+slide (action),23.6032814,action_words,predicates,verbs,slide (action)
+slide (object),22.413764,outside,nouns,nouns,slide (object)
+slipper,26.00255155,clothing,nouns,nouns,slipper
+slow,28.07105396,descriptive_words,predicates,adjectives,slow
+smile,26.07432492,action_words,predicates,verbs,smile
+snack,23.35447794,games_routines,other,other,snack
+sneaker,28.86310141,clothing,nouns,nouns,sneaker
+snow,24.48957477,outside,nouns,nouns,snow
+snowman,26.55271445,outside,nouns,nouns,snowman
+snowsuit,32.07665031,clothing,nouns,nouns,snowsuit
+so,31.00365197,connecting_words,function_words,function_words,so
+so big!,26.02447597,games_routines,other,other,so big
+soap,21.90852652,household,nouns,nouns,soap
+sock,20.11239442,clothing,nouns,nouns,sock
+soda/pop,25.79328113,food_drink,nouns,nouns,soda
+sofa,29.52216767,furniture_rooms,nouns,nouns,sofa
+soft,25.45865288,descriptive_words,predicates,adjectives,soft
+some,25.58485265,quantifiers,function_words,function_words,some
+soup,24.28925479,food_drink,nouns,nouns,soup
+spaghetti,23.68264522,food_drink,nouns,nouns,spaghetti
+spill,25.78282364,action_words,predicates,verbs,spill
+splash,24.772426,action_words,predicates,verbs,splash
+spoon,19.40739746,household,nouns,nouns,spoon
+sprinkler,28.09337337,outside,nouns,nouns,sprinkler
+squirrel,24.38394048,animals,nouns,nouns,squirrel
+stairs,24.47233622,furniture_rooms,nouns,nouns,stairs
+stand,25.56871588,action_words,predicates,verbs,stand
+star,21.87483823,outside,nouns,nouns,star
+stay,25.64278369,action_words,predicates,verbs,stay
+stick,23.79107936,outside,nouns,nouns,stick
+sticky,25.51138841,descriptive_words,predicates,adjectives,sticky
+stone,29.5851333,outside,nouns,nouns,stone
+stop,22.09577943,action_words,predicates,verbs,stop
+store,22.99557027,places,other,other,store
+story,24.2314032,toys,nouns,nouns,story
+stove,25.75936223,furniture_rooms,nouns,nouns,stove
+strawberry,23.51751466,food_drink,nouns,nouns,strawberry
+street,24.82285235,outside,nouns,nouns,street
+stroller,24.97941875,vehicles,nouns,nouns,stroller
+stuck,25.05617321,descriptive_words,predicates,adjectives,stuck
+sun,22.37494731,outside,nouns,nouns,sun
+sweater,23.71184804,clothing,nouns,nouns,sweater
+sweep,25.64670104,action_words,predicates,verbs,sweep
+swim,23.88808247,action_words,predicates,verbs,swim
+swing (action),22.47473512,action_words,predicates,verbs,swing (action)
+swing (object),21.28954228,outside,nouns,nouns,swing (object)
+table,22.96065311,furniture_rooms,nouns,nouns,table
+take,26.08444745,action_words,predicates,verbs,take
+talk,25.41716421,action_words,predicates,verbs,talk
+tape,25.38159804,household,nouns,nouns,tape
+taste,27.03109026,action_words,predicates,verbs,taste
+teacher,27.68695424,people,other,other,teacher
+tear,28.92069925,action_words,predicates,verbs,tear
+teddybear,22.76353645,animals,nouns,nouns,teddybear
+telephone,20.63309508,household,nouns,nouns,telephone
+thank you,17.64501095,games_routines,other,other,thank you
+that,23.3797445,pronouns,function_words,function_words,that
+the,26.87491328,quantifiers,function_words,function_words,the
+their,31.08328757,pronouns,function_words,function_words,their
+them,30.20786254,pronouns,function_words,function_words,them
+then,30.63509539,connecting_words,function_words,function_words,then
+there,25.09254771,locations,function_words,function_words,there
+these,28.09224368,pronouns,function_words,function_words,these
+they,29.74020853,pronouns,function_words,function_words,they
+think,29.47475878,action_words,predicates,verbs,think
+thirsty,25.16396493,descriptive_words,predicates,adjectives,thirsty
+this,24.3427558,pronouns,function_words,function_words,this
+this little piggy,26.1338384,games_routines,other,other,this little piggy
+those,29.62176034,pronouns,function_words,function_words,those
+throw,23.81304927,action_words,predicates,verbs,throw
+tickle,22.81816597,action_words,predicates,verbs,tickle
+tiger,23.28858403,animals,nouns,nouns,tiger
+tights,30.66928147,clothing,nouns,nouns,tights
+time,30.04212662,time_words,other,other,time
+tiny,29.77934081,descriptive_words,predicates,adjectives,tiny
+tired,25.19744233,descriptive_words,predicates,adjectives,tired
+tissue/kleenex,24.13280003,household,nouns,nouns,kleenex
+to,26.75458921,locations,function_words,function_words,to
+toast,22.88536309,food_drink,nouns,nouns,toast
+today,28.22835573,time_words,other,other,today
+toe,20.41327842,body_parts,nouns,nouns,toe
+tomorrow,28.17489095,time_words,other,other,tomorrow
+tongue,22.6337334,body_parts,nouns,nouns,tongue
+tonight,29.88485282,time_words,other,other,tonight
+too,25.15320969,quantifiers,function_words,function_words,too
+tooth,21.43362303,body_parts,nouns,nouns,tooth
+toothbrush,21.04844197,household,nouns,nouns,toothbrush
+touch,25.24997696,action_words,predicates,verbs,touch
+towel,22.52002742,household,nouns,nouns,towel
+toy (object),21.06077649,toys,nouns,nouns,toy (object)
+tractor,24.66734368,vehicles,nouns,nouns,tractor
+train,20.46982081,vehicles,nouns,nouns,train
+trash,23.83170801,household,nouns,nouns,trash
+tray,31.06443012,household,nouns,nouns,tray
+tree,19.69215699,outside,nouns,nouns,tree
+tricycle,28.20895098,vehicles,nouns,nouns,tricycle
+truck,18.63359797,vehicles,nouns,nouns,truck
+try/try to,27.74700491,helping_verbs,function_words,function_words,try
+tummy,20.97722518,body_parts,nouns,nouns,tummy
+tuna,29.18010354,food_drink,nouns,nouns,tuna
+turkey,25.84038222,animals,nouns,nouns,turkey
+turn around,25.46601605,games_routines,other,other,turn around
+turtle,22.15828874,animals,nouns,nouns,turtle
+tv,21.09256983,furniture_rooms,nouns,nouns,TV
+uh oh,8.970917179,sounds,other,other,uh oh
+uncle,25.35198277,people,other,other,uncle
+under,25.91281872,locations,function_words,function_words,under
+underpants,26.95073912,clothing,nouns,nouns,underpants
+up,18.5070891,locations,function_words,function_words,up
+us,30.95433033,pronouns,function_words,function_words,us
+vacuum,23.98126347,household,nouns,nouns,vacuum
+vagina*,30.72480756,body_parts,nouns,nouns,vagina
+vanilla,30.17902415,food_drink,nouns,nouns,vanilla
+vitamins,26.56348153,food_drink,nouns,nouns,vitamins
+vroom,15.92193546,sounds,other,other,vroom
+wait,25.65305168,action_words,predicates,verbs,wait
+wake,25.96240356,action_words,predicates,verbs,wake
+walk,21.99669024,action_words,predicates,verbs,walk
+walker,32.61412765,household,nouns,nouns,walker
+wanna/want to,24.38115262,helping_verbs,function_words,function_words,wanna
+was,30.00021226,helping_verbs,function_words,function_words,was
+wash,22.97061538,action_words,predicates,verbs,wash
+washing machine,26.61190952,furniture_rooms,nouns,nouns,washing machine
+watch (action),25.17715767,action_words,predicates,verbs,watch (action)
+watch (object),23.81445159,household,nouns,nouns,watch (object)
+water (beverage),18.63050072,food_drink,nouns,nouns,water (beverage)
+water (not beverage),19.13729039,outside,nouns,nouns,water (not beverage)
+we,28.96917104,pronouns,function_words,function_words,we
+were,31.61415824,helping_verbs,function_words,function_words,were
+wet,21.84164565,descriptive_words,predicates,adjectives,wet
+what,23.32692526,question_words,function_words,function_words,what
+when,30.15466264,question_words,function_words,function_words,when (question)
+where,24.82264318,question_words,function_words,function_words,where (question)
+which,32.098105,question_words,function_words,function_words,which
+white,26.20386614,descriptive_words,predicates,adjectives,white
+who,27.35547143,question_words,function_words,function_words,who
+why,27.1955271,question_words,function_words,function_words,why
+will,29.66838003,helping_verbs,function_words,function_words,will
+wind,25.30321403,outside,nouns,nouns,wind
+window,24.50882724,furniture_rooms,nouns,nouns,window
+windy,26.57443924,descriptive_words,predicates,adjectives,windy
+wipe,25.11185163,action_words,predicates,verbs,wipe
+wish,31.25960587,action_words,predicates,verbs,wish
+with,27.02411773,locations,function_words,function_words,with
+wolf,27.67382915,animals,nouns,nouns,wolf
+woods,31.33333347,places,other,other,woods
+woof woof,13.55318794,sounds,other,other,woof woof
+work (action),24.17183709,action_words,predicates,verbs,work (action)
+work (place),23.30009784,places,other,other,work (place)
+would,32.66431577,helping_verbs,function_words,function_words,would
+write,26.32791987,action_words,predicates,verbs,write
+yard,26.82524737,places,other,other,yard
+yellow,23.5287515,descriptive_words,predicates,adjectives,yellow
+yes,17.79202882,games_routines,other,other,yes
+yesterday,30.90793522,time_words,other,other,yesterday
+yogurt,22.87743925,food_drink,nouns,nouns,yogurt
+you,23.50461647,pronouns,function_words,function_words,you
+your,28.4380415,pronouns,function_words,function_words,your
+yourself,32.02599047,pronouns,function_words,function_words,yourself
+yucky,21.54810317,descriptive_words,predicates,adjectives,yucky
+yum yum,14.27115075,sounds,other,other,yum yum
+zebra,24.40859129,animals,nouns,nouns,zebra
+zipper,24.04856927,clothing,nouns,nouns,zipper
+zoo,25.05803484,places,other,other,zoo
