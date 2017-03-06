@@ -8,12 +8,12 @@ body {
 	padding: 0;
 	margin: 0;
 	font-family: Palatino Linotype, Bookman Antiqua, Palatino, serif;
-	font-size: 14px;
+	font-size: 20px;
 	line-height: 20px;
 }
 
 p {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 
@@ -64,17 +64,28 @@ This stuff will vary by experiment.
     background-color: rgb(66, 139, 202);
 }
 
-/* DEMO ONLY - REMOVES UNWANTED MARGIN */
 .well .list-group {
     margin-bottom: 0px;
     overflow-y:scroll; 
-    font-size: 18px;
+    font-size: 20px;
 }
 
-/* make buttons prettier */
 
+/* Make sure scrollbar shows up on ipad*/
+::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+    border-bottom: 1px solid #eee; 
+    border-top: 1px solid #eee;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #000000;
+    border: 2px solid #eee;
+}
 
-button {
+/* buttons */
+.btn.btn-large.btn-danger{
 	background-color:#BCED91;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
@@ -82,20 +93,20 @@ button {
 	border:1px solid #dcdcdc;
 	display:inline-block;
 	cursor:pointer;
-	color:#bced91;
 	font-family:arial;
-	font-size:15px;
-	font-weight:bold;
+	font-size:20px;
+	color: black;
 	padding:6px 24px;
 	text-decoration:none;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
 
-button:hover {
+.btn.btn-large.btn-danger:hover {
 	background-color:#61B329;
 }
-button:active {
+
+.btn.btn-large.btn-danger:active {
 	position:center;
 	top:1px;
 }

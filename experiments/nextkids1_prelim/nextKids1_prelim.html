@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>What does this mean?</title>
+    <title>Nextkids1</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
 
@@ -41,7 +41,7 @@
           <input type="text" id="subjectID" name="subjectID" size="30"> 
         </p>
           <br>
-         <button type="button" onClick="this.blur(); experiment.checkInput()">Start</button>
+         <button type="button" class="btn btn-large btn-danger" onClick="this.blur(); experiment.checkInput()">Start</button>
 
 
         <div id="checkMessage"> </div> <!--dynamically built in javascript-->
@@ -85,9 +85,9 @@
                 </div>
 
           </div>
-
-        <div style="text-align:center"> 
-          <button type="button" onClick="this.blur(); experiment.scoreVocab()">Submit</button>
+          <br>
+        <div style="text-align:center;  font-size:40px"> 
+          <button type="button" class="btn btn-large btn-danger " onClick="this.blur(); experiment.scoreVocab()">Submit</button>
         </div> 
   </div>
 
