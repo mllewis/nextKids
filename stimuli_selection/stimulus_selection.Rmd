@@ -47,7 +47,8 @@ theme_set(theme_bw())
 ## Read in data, clean and merge.
 
 # norms for Snodagrass and Vanderwart pictures (from Cyowicz, et al. 1997)
-snod.norms = read.csv("cycowicz_data.csv") 
+snod.norms = read.csv("cycowicz_data.csv")  %>%
+  add_row(Intentional.name = "flamingo")
 
 # wordbank aoas
 aoa.norms.wb = read.csv("eng_ws_production_aoas.csv")  %>%
@@ -65,10 +66,11 @@ aoa.norms.kuperman = read.csv("AoA_ratings_Kuperman_et_al_BRM.csv") %>%
 sna = snod.norms %>%
     left_join(aoa.norms.wb %>% select(wb.aoa, definition),
         c("Intentional.name" = "definition")) %>%
-      left_join(aoa.norms.kuperman, c("Intentional.name"="Word")) %>%
+    left_join(aoa.norms.kuperman, c("Intentional.name"="Word")) %>%
     filter(is_insect == 0) %>%
     select(-is_insect, -modal.name) %>%
-    arrange(wb.aoa)
+    arrange(wb.aoa) 
+    
 ```
 
 ```{r }
@@ -126,4 +128,14 @@ kable(sna %>% select(11,2,9,4,5,6),
 
 So, the question is, what should we try to optimize in selecting the stimulus set?
 
+## Proposed word set
+```{r} 
+proposed_words = c("pig", "cow", "goat", "squirrel", "raccoon", "tiger", "elephant", "giraffe", "zebra", "monkey","duck", "chicken", "rooster", "bird", "owl","ostrich", "peacock", "penguin", "swan", "flamingo")
 
+sna %>%
+  filter(Intentional.name %in% proposed_words)
+```
+ 
+```{r}
+
+```

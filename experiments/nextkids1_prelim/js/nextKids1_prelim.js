@@ -3,29 +3,32 @@
 // Overview: (i) Parameters (ii) Helper Functions (iii) Control Flow
 
 // TO DO:
-// figure out how to save data (where put php script?)
-// fix formatting on pictures 
+// fix formatting on pictures and checklist
 
 // ---------------- PARAMETERS ------------------
+var bin_cutoff = 10 // this determines the min words parents must report in order to go to "high" bin
+
+// parent word checklist
+var wordList = [ "pig", "cow", "goat", "squirrel", "raccoon", "tiger", "elephant", "giraffe", "zebra", "monkey",
+ "duck", "chicken", "rooster", "bird", "owl", "ostrich", "peacock", "penguin", "swan", "flamingo"] // curently this isn't used anywhere; hard coded in html
+
+// practice triad task objects
+var obj = ["table", "chair", "carrot", "strawberry", "trombone", "banana"];
+
+// google spreadsheet key to next links
+var next_link_key = "1-QGzQBfKb70BX0nEBV1r9fhG1zwb8fwbTUruYkjTFS4"
+
+// php url for saving data (note: permissions of csv file must be set to write)
+var php_url = "http://sapir.psych.wisc.edu/~molly/nextKids1/nextkids1_save_results.php"
+
+// global variables
 var counter = 1
 var next_bin
 var timeafterClick = 1000;
 var clickDisabled
 var next_low_link
 var next_high_link
-
-// parent word checklist
-var wordList = [ "pig", "cow", "goat", "squirrel", "raccoon", "tiger", "elephant", "giraffe", "zebra", "monkey",
- "duck", "chicken", "rooster", "bird", "owl", "peacock", "penguin", "swan", "flamingo"]
-
-// practice triad task objects
-var obj = ["table", "chair", "carrot", "strawberry", "trombone", "banana"];
-
-// google spreadsheet key to 
-var next_link_key = "1-QGzQBfKb70BX0nEBV1r9fhG1zwb8fwbTUruYkjTFS4"
-
-// php url for saving data
-var php_url = "https://sapir.psych.wisc.edu/~molly/nextKids1/nextkids1_save_results.php"
+var checkedItems = {}
 
 // ---------------- HELPER ------------------
 // show slide function
@@ -43,7 +46,16 @@ getCurrentDate = function() {
 	return (month + "/" + day + "/" + year);
 }
 
-// get next link
+getCurrentTime = function() {
+	var currentTime = new Date();
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMinutes();
+
+	if (minutes < 10) minutes = "0" + minutes;
+	return (hours + ":" + minutes);
+}
+
+// get next link from googlesheet
 getUrls = function(data, tabletop){
 	urls = tabletop.sheets("urls").toArray()
 	next_low_link = urls[0][0]
@@ -72,14 +84,15 @@ var experiment = {
 		//inputed at beginning of experiment
 	date: getCurrentDate(),
 		//the date of the experiment
+	timestamp: getCurrentTime(),
 
 	//Checks to see whether the experimenter inputted appropriate values before moving on with the experiment
 	checkInput: function() {
 		//subject ID
-  		//if (document.getElementById("subjectID").value.length < 1) {
-		//	$("#checkMessage").html('<font color="red">You must input a subject ID</font>');
-		//	return;
-		//}
+  		if (document.getElementById("subjectID").value.length < 1) {
+			$("#checkMessage").html('<font color="red">You must input a subject ID</font>');
+			return;
+		}
   		experiment.subid = document.getElementById("subjectID").value;
 		experiment.getParentVocab();
 	}, 
@@ -90,16 +103,16 @@ var experiment = {
 
 	scoreVocab: function () {   
 		 // get checked items
-		 var checkedItems = {}, counter = 0;   
+		 i = 0;   
 	      $("#check-list-box li.active").each(function(idx, li) {
-	            checkedItems[counter] = $(li).text();
-	            counter++;
+	            checkedItems[i] = $(li).text();
+	            i++;
 	        })
 
 	     // get score (could do something more elabotrate here with aoaData.js)
 	     var score = Object.keys(checkedItems).length
 
-	     if (score < 1) {
+	     if (score < bin_cutoff) {
 	     	next_bin = "low"
 	     } else {
 	     	next_bin = "high"
@@ -107,10 +120,9 @@ var experiment = {
 
 	    // save data to data file
 		var dataforRound = experiment.subid; 
-		dataforRound += "," + experiment.date + "," + experiment.timestamp + "," + score + "," + checkedItems + "\n";
-		alert(dataforRound)
-		$.post(php_url, {postresult_string : dataforRound});	
-		//$.post("http://langcog.stanford.edu/cgi-bin/TABLET/tabletstudysave.php", {postresult_string : dataforRound});	
+		dataforRound += "," + experiment.date + "," + experiment.timestamp + "," + score + "," + JSON.stringify(checkedItems) + "\n";
+		//alert(JSON.stringify(checkedItems))
+		$.post(php_url, {postresult_string : dataforRound});
 
 		// Start practice trilas
 		experiment.practiceTrial()
@@ -144,9 +156,6 @@ var experiment = {
 				obj.splice(0, 3);
 
 				setTimeout(function() {
-					//$("#practiceSlide").fadeOut();
-
-					//there are no more trials for the experiment to run
 					if (counter == 2) {
 						experiment.go_to_next_expt();
 						return;
