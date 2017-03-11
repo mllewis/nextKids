@@ -6,6 +6,7 @@ misc/*
 *.rdb
 *.rdx
 *.Rhistory
+*Exp-Details.txt
 
 # LaTeX #
 *.bet

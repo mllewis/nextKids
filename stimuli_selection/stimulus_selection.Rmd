@@ -48,7 +48,7 @@ theme_set(theme_bw())
 
 # norms for Snodagrass and Vanderwart pictures (from Cyowicz, et al. 1997)
 snod.norms = read.csv("cycowicz_data.csv")  %>%
-  add_row(Intentional.name = "flamingo")
+  add_row(Intentional.name = "flamingo", is_insect=0)
 
 # wordbank aoas
 aoa.norms.wb = read.csv("eng_ws_production_aoas.csv")  %>%
@@ -64,10 +64,10 @@ aoa.norms.kuperman = read.csv("AoA_ratings_Kuperman_et_al_BRM.csv") %>%
   rename(adult.aoa = Rating.Mean)
 
 sna = snod.norms %>%
-    left_join(aoa.norms.wb %>% select(wb.aoa, definition),
+    right_join(aoa.norms.wb %>% select(wb.aoa, definition),
         c("Intentional.name" = "definition")) %>%
-    left_join(aoa.norms.kuperman, c("Intentional.name"="Word")) %>%
-    filter(is_insect == 0) %>%
+    right_join(aoa.norms.kuperman, c("Intentional.name"="Word")) %>%
+    #filter(is_insect == 0) %>%
     select(-is_insect, -modal.name) %>%
     arrange(wb.aoa) 
     
@@ -132,10 +132,84 @@ So, the question is, what should we try to optimize in selecting the stimulus se
 ```{r} 
 proposed_words = c("pig", "cow", "goat", "squirrel", "raccoon", "tiger", "elephant", "giraffe", "zebra", "monkey","duck", "chicken", "rooster", "bird", "owl","ostrich", "peacock", "penguin", "swan", "flamingo")
 
-sna %>%
-  filter(Intentional.name %in% proposed_words)
+items = sna %>% filter(Intentional.name %in% proposed_words)
 ```
  
 ```{r}
+items %>%
+  gather(measure, value, c(4:6,9)) %>%
+  mutate(ref = ifelse(measure == "all.aoa", 24, 50)) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram() + 
+  facet_wrap(~measure, scales = "free_x") +
+  theme_bw()
+```
 
+Suppose we test 36 month olds - 60 months olds (4-5). We want words with a 48 month old aoa.
+
+double check whether these are production or comprehension wb aoas?
+
+```{r}
+ggplot(sna, aes(x = all.aoa)) +
+  geom_histogram() + 
+  theme_bw()
+
+sna %>%
+  filter(all.aoa < 49 & all.aoa > 47) %>%
+  arrange(adult.aoa) %>%
+  tail(30)
+```
+
+```{r} 
+counts <- read.csv("AnimalWords.csv")  
+
+counts.clean <- counts %>%
+  select(-1:-4) %>%
+  gather("word","value",2:21) %>%
+  mutate(produces = ifelse(value == 2, 1, 0),
+         comprehends = ifelse(!is.na(value), 1, 0)) %>%
+  select(-value) %>%
+  rename(subid = For.Office.Use.Only.Participant.ID.)
+
+counts.long = counts.clean %>%
+  group_by(word) %>%
+  summarize(known = sum(produces, na.rm = T),
+            total = n()) %>%
+  mutate(prop.produce = known/total) %>%
+  arrange(prop.produce)
+
+hard_words = c("ostrich", "rooster", "goat", "peacock", "raccoon", "swan", "squirrel")
+  
+counts.total = counts.clean %>%
+  mutate(hard = ifelse(produces == 1 & word %in% hard_words, 1, 0)) %>%
+  group_by(subid) %>%
+  summarize(hard = sum(hard, na.rm = T))
+
+ggplot(counts.total, aes(x = hard)) +
+  geom_histogram()
+
+ggplot(counts.clean, aes(x = Age)) +
+  geom_histogram()
+
+counts.total2 = counts.clean %>%
+  group_by(subid, Age) %>%
+  summarize(produces.total = sum(produces, na.rm = T)) %>%
+  arrange(Age)
+```
+
+Tim questions:
+- adult version
+- vocab cutoff
+- later age norms?
+- ask about production 
+- measure
+- if norms exist, use them, if not 
+- 16 items -> 88 total per group
+-
+
+```{r}
+aoa.norms.wb.all = read.csv("eng_ws_production_aoas.csv")
+
+ggplot(aoa.norms.wb.all, aes(x = aoa)) +
+  geom_histogram()
 ```
