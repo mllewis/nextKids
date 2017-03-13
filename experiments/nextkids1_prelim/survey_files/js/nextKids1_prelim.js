@@ -99,11 +99,16 @@ var experiment = {
 			return;
 		}
   		experiment.subid = document.getElementById("subjectID").value;
-		experiment.getParentVocab();
 		experiment.group = $("#myForm input[type='radio']:checked").val()
+
+		if (experiment.group == "old") {
+			experiment.practiceTrial()
+		} else {
+			experiment.getParentVocab()
+		}
 	}, 
 
-	getParentVocab: function () {      
+	getParentVocab: function () {    
         showSlide("parentVocab");
 	},
 
