@@ -16,7 +16,7 @@ var obj = ["table", "chair", "plane", "strawberry", "trombone", "banana"];
 // google spreadsheet key to next links
 var next_link_key = "1-QGzQBfKb70BX0nEBV1r9fhG1zwb8fwbTUruYkjTFS4"
 
-// php url for saving data (note: permissions of csv file must be set to write)
+// php url for saving data (note: permissions of csv file must be set to write and apply!)
 var php_url = "http://sapir.psych.wisc.edu/~molly/nextKids2/nextkids2_save_results.php"
 
 // global variables
