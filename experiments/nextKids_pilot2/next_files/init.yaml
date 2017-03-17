@@ -8,7 +8,7 @@ args:
     params:
     - {alg_label: UncertaintySampling, proportion: 0.8}
     - {alg_label: RandomSampling, proportion: 0.2}
-  num_tries: 20
+  num_tries: 25
   d: 2
   debrief: "All done. Thanks for participating!"
   failure_probability: 0.01
