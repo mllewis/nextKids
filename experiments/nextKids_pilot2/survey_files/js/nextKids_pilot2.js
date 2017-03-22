@@ -2,10 +2,7 @@
 
 // Overview: (i) Parameters (ii) Helper Functions (iii) Control Flow
 
-
 // ---------------- PARAMETERS ------------------ 
-var bin_cutoff = 10 // this determines the min words parents must report in order to go to "high" bin
-
 // parent word checklist
 var wordList = [ "pig", "cow", "squirrel", "raccoon", "elephant", "giraffe", "zebra", "monkey",
  "duck", "rooster", "bird", "owl", "ostrich", "peacock", "penguin", "swan"] // curently this isn't used anywhere; hard coded in html
@@ -13,7 +10,7 @@ var wordList = [ "pig", "cow", "squirrel", "raccoon", "elephant", "giraffe", "ze
 // practice triad task objects
 var obj = ["table", "chair", "plane", "strawberry", "trombone", "banana"];
 
-// google spreadsheet key to next links
+// google spreadsheet key to next links (note: make sure publish google doc)
 var next_link_key = "1-QGzQBfKb70BX0nEBV1r9fhG1zwb8fwbTUruYkjTFS4"
 
 // php url for saving data (note: permissions of csv file must be set to write and apply!)
