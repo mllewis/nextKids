@@ -1,5 +1,5 @@
 ---
-title: Plot embeddings from python
+title: Plot embeddings from Next Pilot
 author: Molly Lewis 
 date: "`r Sys.Date()`"
 output: 
@@ -8,7 +8,7 @@ output:
     number_sections: false
     theme: cerulean
     toc_float: true
-    code_folding: show 
+    code_folding: hide 
 ---
 
 ******
@@ -23,12 +23,15 @@ library(broom)
 library(tidyverse) 
 library(ggplot2)
 library(stringr)
+library(forcats)
+library(jsonlite)
+
 
 opts_chunk$set(echo = T, message = F, warning = F, 
                error = F, cache = F, tidy = F, fig.height = 4)
 ```  
 
-### Read in data 
+## Read in raw trial data 
 ```{r}
 p1_young= read.csv("/Documents/GRADUATE_SCHOOL/Projects/next_kids/experiments/nextKids_pilot1/data/next/3-4yo/participant_data_34.csv") %>%
   mutate(exp = 1, 
@@ -42,37 +45,72 @@ p2_young= read.csv("/Documents/GRADUATE_SCHOOL/Projects/next_kids/experiments/ne
 p2_mid= read.csv("/Documents/GRADUATE_SCHOOL/Projects/next_kids/experiments/nextKids_pilot2/data/5-6yo/participant_data_56.csv") %>%
   mutate(exp = 2,
          age_group = "mid")
+
+p2_old= read.csv("/Documents/GRADUATE_SCHOOL/Projects/next_kids/experiments/nextKids_pilot2/data/7-8yo/participant_data_78.csv") %>%
+  mutate(exp = 2,
+         age_group = "old")
 ```
 
-### Merge and munge
+Merge and munge
 ```{r}
-d = rbind(p1_young, p1_mid, p2_young, p2_mid) %>%
-    #filter(alg_id == "UncertaintySampling") %>%
-    select(exp, age_group, target_center, target_left, target_right, target_winner) %>%
+d = rbind(p1_young, p1_mid, p2_young, p2_mid, p2_old) %>%
+    filter(alg_id == "UncertaintySampling") %>%
+    mutate(participant_uid, subid = lapply(str_split(participant_uid, "_"), 
+                                   function(x) {x[2]})) %>%
+    select(exp, subid, age_group, target_center, target_left, target_right, target_winner) %>%
     mutate_each(funs(lapply(str_split(., ".com/|.jpg"), 
-                                   function(x) {x[2]})), -exp, -age_group)  %>%
-    mutate_each(funs(as.factor(unlist(.))),-exp, -age_group)
+                                   function(x) {x[2]})), -exp, -age_group, -subid)  %>%
+    mutate_each(funs(as.factor(unlist(.))),-exp, -age_group)  %>%
+    mutate(age_group = fct_relevel(age_group, "young", "mid")) 
 
+
+d = filter(d, subid != "7smVlvhKMXzrayO8MtwFKuo23EWP9N")
+```
+
+## Demographics
+### Number of participants
+```{r}
+d %>%
+  group_by(subid, age_group,exp) %>%
+  slice(1) %>%
+  group_by(exp, age_group) %>%
+  summarize(n = n())  %>%
+  kable()
+```
+
+### Number of trials
+```{r}
+d %>%
+  group_by(exp, age_group) %>%
+  summarize(n = n())  %>%
+  kable()
+```
+
+
+## Munge data for python
+Convert names to numeric (for python)
+```{r}
+#images = unique(d$i)
+#image_dict = data.frame(images = images, image_num = 0:(length(images)-1))
+#write.csv(image_dict, "image_dict.csv", row.names = F)
+image_dict = read.csv("image_dict.csv")
+```
+
+```{r}
 d = d %>%
     mutate(i = target_center,
            j = ifelse(target_left == target_winner, as.character(target_right), as.character(target_left)),
            k = target_winner)
-```
-
-### Convert names to numeric (for python)
-```{r}
-images = unique(d$i)
-image_dict = data.frame(images = images, image_num = 0:(length(images)-1))
 
 d_numeric = d %>%
   select(exp, age_group, i, j, k) %>%
-  left_join(image_dict, by=c("i"="images")) %>%
+  left_join(select(image_dict, images, image_num), by=c("i"="images")) %>%
   select(-i) %>%
   rename(i = image_num) %>%
-  left_join(image_dict, by=c("j"="images")) %>%
+  left_join(select(image_dict, images, image_num), by=c("j"="images")) %>%
   select(-j) %>%
   rename(j = image_num) %>%
-  left_join(image_dict, by=c("k"="images")) %>%
+  left_join(select(image_dict, images, image_num), by=c("k"="images")) %>%
   select(-k) %>%
   rename(k = image_num)
 ```
@@ -85,17 +123,186 @@ write.csv(d_numeric, "triplet_data.csv", row.names = F)
 Run get_embeddings.ipynb to get embeddings (computeEmbeddings python)
 `jupyter notebook get_embeddings.ipynb`.
 
-### Read in embeddings
+## Embeddings
+###  Uncertainty E1 and E2  {.tabset}
 ```{r}
-es = read.csv("mid_embed.csv", header = F) 
-colnames(es) = c("X", "Y")
-
-es = cbind(images, es) # add image names
+es = read.csv("all_embeddings_uncertainty.csv") %>%
+  rename(image_num = X.1) %>%
+  mutate(age_group = fct_relevel(age_group, "young", "mid")) %>%
+  left_join(image_dict)
 ```
 
-### Plot
+#### Points
+```{r}
+ggplot(es, aes(x = X, y = Y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~age_group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        legend.position = "bottom")
+
+```
+
+#### Labels
 ```{r}
 ggplot(es, aes(x = X, y = Y)) +
-   geom_text(aes(label=images)) +
-   theme_void()
+   geom_text(aes(label=images), size = 3) +
+   facet_wrap(~age_group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank())
+```
+
+### All E1 and E2 {.tabset}
+```{r}
+es = read.csv("all_embeddings_all.csv") %>%
+  rename(image_num = X.1) %>%
+  mutate(age_group = fct_relevel(age_group, "young", "mid")) %>%
+  left_join(image_dict)
+```
+
+#### Points
+```{r}
+ggplot(es, aes(x = X, y = Y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~age_group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        legend.position = "bottom")
+
+```
+
+#### Labels
+```{r}
+ggplot(es, aes(x = X, y = Y)) +
+   geom_text(aes(label=images), size = 3) +
+   facet_wrap(~age_group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank())
+```
+
+
+### Uncertainty E2 {.tabset}
+```{r}
+es = read.csv("all_embeddings_2_uncertainty.csv") %>%
+  rename(image_num = X.1) %>%
+  mutate(age_group = fct_relevel(age_group, "young", "mid")) %>%
+  left_join(image_dict)
+```
+
+#### Points
+```{r}
+ggplot(es, aes(x = X, y = Y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~age_group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        legend.position = "bottom")
+
+```
+
+#### Labels
+```{r}
+ggplot(es, aes(x = X, y = Y)) +
+   geom_text(aes(label=images), size = 3) +
+   facet_wrap(~age_group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank())
+```
+
+### Next Uncertainty E2 {.tabset}
+```{r}
+p2e_young= flatten(fromJSON("/Documents/GRADUATE_SCHOOL/Projects/next_kids/experiments/nextKids_pilot2/data/3-4yo/embedding_34_uncertainty.txt")) %>%
+  select(darray, target.alt_description) %>%
+  mutate(exp = 2,
+         age_group = "young")
+
+p2e_mid= flatten(fromJSON("/Documents/GRADUATE_SCHOOL/Projects/next_kids/experiments/nextKids_pilot2/data/5-6yo/embedding_56_uncertainty.txt"))%>%
+    select(darray, target.alt_description) %>%
+    mutate(exp = 2,
+         age_group = "mid")
+
+p2e_old= flatten(fromJSON("/Documents/GRADUATE_SCHOOL/Projects/next_kids/experiments/nextKids_pilot2/data/7-8yo/embedding_78_uncertainty.txt"))%>%
+    select(darray, target.alt_description) %>%
+    mutate(exp = 2,
+         age_group = "old")
+
+next_embed = rbind(p2e_young, p2e_mid, p2e_old) %>%
+    mutate(images = unlist(lapply(str_split(target.alt_description, ".jpg"), 
+                                   function(x) {x[1]}))) %>%
+   select(-target.alt_description) %>%
+   separate(darray, c("X", "Y"), ",") %>%
+   mutate(X = as.numeric(gsub( "c\\(", "", X)),
+          Y = as.numeric(gsub("\\)", "", Y)),
+          age_group = as.factor(age_group),
+          images = as.factor(images)) %>%
+    mutate(age_group = fct_relevel(age_group, "young", "mid")) %>%
+    left_join(image_dict) %>%
+    select(-image_num)
+```
+
+#### Points
+```{r}
+ggplot(next_embed, aes(x = X, y = Y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~age_group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        legend.position = "bottom")
+```
+
+#### Labels
+```{r}
+ggplot(next_embed, aes(x = X, y = Y)) +
+   geom_text(aes(label=images), size = 3) +
+   facet_wrap(~age_group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),)
 ```

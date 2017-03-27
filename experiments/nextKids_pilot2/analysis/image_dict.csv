@@ -1,0 +1,17 @@
+images,image_num,type,theme
+rooster,1,bird,farm
+bird,6,bird,farm
+owl,7,bird,farm
+duck,8,bird,farm
+swan,10,bird,wild
+ostrich,4,bird,wild
+penguin,11,bird,wild
+peacock,13,bird,wild
+cow,0,mammal,farm
+raccoon,9,mammal,farm
+pig,12,mammal,farm
+squirrel,14,mammal,farm
+giraffe,2,mammal,wild
+elephant,3,mammal,wild
+monkey,5,mammal,wild
+zebra,15,mammal,wild
