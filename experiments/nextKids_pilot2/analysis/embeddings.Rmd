@@ -245,6 +245,45 @@ ggplot(es, aes(x = X, y = Y)) +
         axis.ticks=element_blank())
 ```
 
+### Uncertainty E2 {.tabset}
+```{r}
+es = read.csv("all_embeddings_uncertainty_withall.csv") %>%
+  rename(image_num = X.1) %>%
+  filter(age_group == "all_groups") %>% 
+  left_join(image_dict)
+```
+
+#### Points
+```{r}
+ggplot(es, aes(x = X, y = Y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank(),
+        legend.position = "bottom")
+
+```
+
+#### Labels
+```{r}
+ggplot(es, aes(x = X, y = Y)) +
+   geom_text(aes(label=images), size = 3) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title=element_blank(),
+        axis.text=element_blank(),
+        axis.ticks=element_blank())
+```
+
+
 ### Next Uncertainty E2 {.tabset}
 ```{r}
 p2e_young= flatten(fromJSON("/Documents/GRADUATE_SCHOOL/Projects/next_kids/experiments/nextKids_pilot2/data/3-4yo/embedding_34_uncertainty.txt")) %>%
@@ -304,5 +343,5 @@ ggplot(next_embed, aes(x = X, y = Y)) +
         strip.background = element_rect(colour="grey", fill="grey"),
         axis.title=element_blank(),
         axis.text=element_blank(),
-        axis.ticks=element_blank(),)
+        axis.ticks=element_blank())
 ```
