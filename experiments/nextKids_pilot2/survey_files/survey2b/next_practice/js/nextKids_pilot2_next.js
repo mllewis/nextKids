@@ -25,6 +25,7 @@ var next_young_link
 var next_mid_link
 var next_old_link
 var next_test_link
+var next_adult_link
 var checkedItems = {}
 
 // ---------------- HELPER ------------------
@@ -59,6 +60,8 @@ getUrls = function(data, tabletop){
 	next_mid_link = urls[0][1]
 	next_old_link = urls[0][2]
 	next_test_link = urls[0][3]
+	next_adult_link = urls[0][5]
+
 }
 
 var tabletop = Tabletop.init({ 
@@ -167,6 +170,8 @@ var experiment = {
 			link = next_old_link
 		} else if (experiment.group == "test"){
 			link = next_test_link
+		} else if (experiment.group == "adult"){
+			link = next_adult_link
 		}
 		
 		 //appends subid to link in order to pass to NEXT framework

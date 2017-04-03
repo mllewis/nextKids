@@ -1,0 +1,172 @@
+---
+title: NextKids pilot - vocab data and practice trials
+author: Molly Lewis 
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    number_sections: false
+    theme: cerulean
+    toc_float: true
+    code_folding: hide 
+---
+
+******
+******
+
+```{r setup, include = F}
+# load packages
+library(knitr)
+library(rmarkdown)
+library(broom)
+library(tidyverse) 
+library(ggplot2)
+library(stringr)
+library(forcats)
+library(jsonlite)
+
+
+opts_chunk$set(echo = T, message = F, warning = F, 
+               error = F, cache = T, tidy = F, fig.height = 4)
+```  
+
+## Run sheet - demographics
+```{r}
+runsheet = read.csv("../data/pilot1_and_2/nextKids_pilot_1_2_subject_deID.csv") %>%
+  select(subjCode, Gender, Age, ageBin) %>%
+  mutate(age_group = ifelse(ageBin == "5to6", "middle", ifelse(ageBin == "3to4", "young", "old"))) %>%
+  mutate(age_group = fct_relevel(age_group, "young", "middle")) %>%
+  select(-ageBin) %>%
+  rename(subid = subjCode) 
+```
+
+### Exclude subjects
+p029 was run by nanny; p022 didn't do next
+```{r}
+runsheet = runsheet %>%
+  filter(subid != "p029" & subid != "p022") 
+```
+
+```{r}
+runsheet %>%
+  group_by(subid) %>%
+  group_by(age_group) %>%
+  summarize(n = n()) %>%
+  kable()
+```
+
+Age Distribution
+```{r}
+runsheet %>%
+  group_by(subid) %>%
+  group_by(age_group) %>%
+  ggplot(aes(y= Age, x= age_group, fill = age_group)) +
+  geom_boxplot() +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+## Practice trials
+```{r}
+ptrials = read.csv("../data/pilot1_and_2/nextKids_pilot_1_2_practice_trials.csv")  %>%
+    mutate(age_group = fct_relevel(age_group, "young", "middle")) %>%
+      mutate(subid = tolower(subid)) 
+```
+
+Exclude subjects
+```{r}
+ptrials = ptrials %>%
+  filter(subid != "p029" & subid != "p022") # p029 was run by nanny; p022 didn't do next
+```
+
+Proportion practice trials correct
+```{r}
+unique.subs = ptrials %>%
+  group_by(subid) %>%
+  slice(1) %>%
+  select(-response, -trial_num, -trial_type) %>%
+  group_by(age_group) 
+
+s.prop.correct = ptrials %>%
+  mutate(correct = ifelse(response == "banana" | response == "chair", 1, 0)) %>%
+  group_by(subid, age_group) %>%
+  slice(1:2) %>% # first two trials if repeated multiple times
+  summarize(prop_correct = sum(correct)/2)
+
+ggplot(s.prop.correct, aes(x= prop_correct, fill = age_group)) +
+  geom_histogram(binwidth = .1) +
+  facet_grid(~age_group) +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+Many younger kids missing one of the practice trials.
+
+
+## Vocab data
+```{r}
+vocab = read.csv("../data/pilot1_and_2/nextKids_pilot_1_2_parentsurvey.csv")  %>%
+  mutate(age_group = fct_relevel(age_group, "young", "middle"),
+         subid = tolower(subid))%>%
+  filter(subid != "p022") 
+```
+
+Total words
+```{r}
+ggplot(vocab, aes(x= total_words, fill = age_group)) +
+  geom_histogram() +
+  facet_grid(~age_group) +
+  theme_bw() +
+  theme(legend.position = "none")
+
+ggplot(vocab, aes(y= total_words, x= age_group, fill = age_group)) +
+  geom_boxplot() +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+Not sure why we have data for some in old group? Only a few kids.
+
+Word items
+```{r}
+concat.vocab = vocab %>%
+   unite(vocab, 8:47, remove = TRUE, sep = ",") %>%
+   filter(total_words > 0) %>%
+   mutate(vocab = gsub('[[:digit:]]+', '', vocab),
+         vocab = gsub("[^[:alnum:],]", "", vocab))
+```
+
+```{r}
+long.vocab = data.frame(do.call('rbind', strsplit(as.character(concat.vocab$vocab),',',fixed=TRUE))) %>%
+  cbind(subid = concat.vocab$subid) %>%
+  gather(var, word, 1:40) %>%
+  select(-var) %>%
+  mutate(word = as.factor(word)) %>%
+  filter(word !="")
+
+vocab.counts = long.vocab %>%
+  group_by(word) %>%
+  summarize(n = n()) %>%
+  mutate(word = fct_reorder(word, n))
+
+ggplot(vocab.counts, aes(x = word, y = n)) +
+  geom_bar(stat = "identity") +
+  ylab("n_know") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, vjust = .3, hjust = 1)) 
+```
+
+Merge all data together 
+```{r}
+d = runsheet %>%
+  full_join(s.prop.correct, by="subid") %>%
+  full_join(select(vocab, -8:-47), by = "subid") %>%
+  select(exp, subid,date, time, Gender, Age, age_group.x, prop_correct, total_words) %>%
+  rename(age_group = age_group.x)
+
+#write.csv(d, "nextKids_1_2_combined_other_data.csv")
+```
+
+
+
+

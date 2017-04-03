@@ -1,0 +1,59 @@
+subjCode,ageBin,Date,Child's Name,Gender,Age,Birthdate,Experimenter,Exclude,Notes,surveyID,discrepant_ID
+p001,5to6,3/11/17,removed,m,6.93,removed,MZ,N,"responsiveness issue on one NEXT trial: clicked a bird-to-bird match, but when the touch did not register, chose an elephant. Issue only affected this specific trial; bilingual (English, German), lives in Germany",p001,TRUE
+p002,3to4,3/11/17,removed,f,3.29,removed,CJ,N,"child was very shy but warmed up once she sat on mother's lap; mother subsequently guided child through trials; mother's instructions were good (neutral), except two instances in which she named animals during testing (ostrich, rooster)",p002,TRUE
+p003,5to6,3/11/17,removed,m,5.95,removed,MZ,N,great,p003,TRUE
+p004,3to4,3/11/17,removed,f,4.5,removed,CJ,N,"check data - experiment froze and NEXT trials had to be restarted; otherwise check data - experiment froze and NEXT trials had to be restarted; otherwise, Clint writes: ""On a few trials he would make a selection but the tablet was slow to respond or nonresponsive... so, he chose the other picture""",p004,TRUE
+p005,3to4,3/11/17,removed,m,3.65,removed,MZ,N,child was shy and spoke very quietly during naming trials; I had to help press the animal on some NEXT responses because the tablet didn't respond to his touches (always pressed the animal he touched immediately after his response),p005,TRUE
+p007,3to4,3/11/17,removed,f,3.27,removed,MZ,N,good on NEXT; shy during naming trials - always advanced if she shook her head or hid her face/ did not respond after 5 seconds or so; sister to p009,p007,TRUE
+p009,5to6,3/11/17,removed,m,6.23,removed,MZ,N,brother to p007,p009,TRUE
+p006,3to4,3/11/17,removed,f,4.51,removed,MZ,N,"trilingual (Spanish, Italian); no vocab data because tablet browser did not support scrolling; got a little bored with the NEXT task and clicked through one trial too quickly",p006,TRUE
+p010,3to4,3/18/17,removed,f,4.15,removed,MZ,N,good; had to encourage her to press the animal sometimes (when she merely pointed),p010,TRUE
+p011,5to6,3/18/17,removed,m,5.72,removed,MZ,N,"only month not day of birth indicated; great, had to help press the tablet occasionally",p011,TRUE
+p012,5to6,3/18/17,removed,m,5.63,removed,MZ,N,"only month not day of birth indicated; great, had to help press the tablet",p012,TRUE
+p013,3to4,3/18/17,removed,f,3.13,removed,MZ,N,"pressed too long on 3 trials, triggering the image on the next trial. This occurred on fruit practice trial & on 2 NEXT trials; same family as p016/p017",p013,TRUE
+p014,5to6,3/18/17,removed,m,5.36,removed,MZ,N,great,p014,TRUE
+p015,5to6,3/18/17,removed,m,6.86,removed,MZ,N,good; had to help press the tablet,p015,TRUE
+p016,3to4,3/18/17,removed,m,4.91,removed,MZ,N,good; same family as p013/ p017,p016,TRUE
+p017,5to6,3/18/17,removed,m,6.92,removed,MZ,N,good; had to help press tablet; same family as p016/ p013,p017,TRUE
+p018,3to4,3/18/17,removed,m,4.24,removed,MZ,N,"weird moment: after a bunch of NEXT trials returned to beginning screen rather than NEXT debrief page; may not have been paying attention on every NEXT trial; gave ""silly"" responses during animal naming (""cheese"", ""food"", etc.)",p018,TRUE
+p020,3to4,3/21/17,removed,m,3.72,removed,MZ,N,great; I helped with some pressing on NEXT trials (he pointed; I pressed); only month indicated for birthdate,p020,TRUE
+p021,5to6,3/21/17,removed,f,5.31,removed,MZ,N?,five-year-old; exact birthdate unclear (mom did not know? But was sure that child was 5-year-old); December birthdate,p021,TRUE
+p022,3to4,3/21/17,removed,f,3.64,removed,MZ,Y,did not end up participating in NEXT trials; only month not birth day indicated,p022,TRUE
+p019,3to4,3/21/17,removed,m,4.89,removed,MZ,N,"only month not day of birth indicated; completed only about ~10 NEXT trials; advanced too quickly on one trial (pressed too long on previous trial, activating the next trial; no naming data",p019,TRUE
+p023,5to6,3/22/17,removed,f,6.78,removed,MZ,N,advanced trial too quickly on one NEXT trial. A lot of repeated trials,p023,TRUE
+p024,3to4,3/22/17,removed,f,3.62,removed,MZ,N,great,p024,TRUE
+p025,7to8,3/22/17,removed,m,7.17,removed,MZ,N,"great; I helped press NEXT trials occasionally; commented a lot on the features he was using to make choices: fur, feathers",p025,TRUE
+p026,3to4,3/22/17,removed,m,3.72,removed,MZ,N,I accidentally advanced one NEXT trial (an early pig choice); wasn't especially focused; chose both practice trials incorrectly but seemed engaged at the beginning; latter half used a stuffed animal's nose to point out choices; a lot of repeated trials,p026,TRUE
+p027,3to4,3/22/17,removed,m,3.29,removed,MZ,N,great,p027,TRUE
+p028,3to4,3/23/17,removed,f,3.76,removed,MZ,N,good,p028,TRUE
+p029,3to4,3/23/17,removed,f,4.82,removed,MZ,Y,child was with nanny (did not become clear until after task completed); did not collect vocab data,NA,FALSE
+p030,7to8,3/23/17,removed,m,7.15,removed,MZ,N,good; no parent naming data due to age,NA,FALSE
+p031,3to4,3/23/17,removed,f,3.79,removed,MZ,N,"good, she clicked through one trial accidentally",p031,TRUE
+p032,5to6,3/23/17,removed,m,5.16,removed,MZ,N,"good, no vocab data (family had to leave)",NA,FALSE
+p033,7to8,3/23/17,removed,f,7.63,removed,MZ,N,great; she accidentally clicked through one trial; no parent vocab since 7to8; child skipped one trial (advanced qualtrics study before I could intervene),NA,FALSE
+p034,3to4,3/31/17,removed,f,4.71,removed,MZ,N,great (a lot of repeated trials),p034,TRUE
+p035,3to4,3/31/17,removed,m,3.13,removed,MZ,N?,"parents said he was 3 but DOB on form given suggests 2 - I think they probably switched date and month because they said he ""just"" turned 3; advanced two trials by pressing repeatedly",P035,TRUE
+p036,7to8,3/31/17,removed,m,7.78,removed,MZ,N,parent vocab survey is under subject ID p036,p036,TRUE
+p037,5to6,3/31/17,removed,m,5.02,removed,MZ,N,parent vocab survey is under subject ID p037,P037,TRUE
+p038,7to8,3/31/17,removed,m,8.91,removed,MZ,N,great; child accidentally advanced through one trial,P038,TRUE
+p039,5to6,3/31/17,removed,f,6.08,removed,MZ,N,"child accidentally advanced through one trial, otherwise great!",p039,TRUE
+p040,3to4,3/31/17,removed,m,4.78,removed,MZ,N,great,p040,TRUE
+p041,7to8,3/31/17,removed,m,8.96,removed,MZ,N,great; child accidentally advanced through one trial,p041,TRUE
+p042,7to8,4/1/17,removed,f,8.04,removed,CJ,N,,p042,TRUE
+p043,7to8,4/1/17,removed,f,7.28,removed,MZ,N,great,p043,TRUE
+p044,5to6,4/1/17,removed,m,6.68,removed,CJ,N,screen freeze in NEXT trials,p044,TRUE
+p045,5to6,4/1/17,removed,m,6.78,removed,MZ,N,"pause for 20s after one trial - otherwise great! Parent survey - unclear how specifically parent looked at words, said ""he knows all of them""",P045,TRUE
+p046,3to4,4/1/17,removed,m,4.44,removed,CJ,N,screen freeze in NEXT trials,p046,TRUE
+p047,3to4,4/1/17,removed,m,4.33,removed,MZ,N,no day of birth; good!,P047,TRUE
+p048,5to6,4/1/17,removed,m,6.29,removed,CJ,N,issues with loading NEXT experiment (after practice trials),p048,TRUE
+p049,5to6,4/1/17,removed,f,6.6,removed,MZ,N,"good; experimenter accidentally said ""cow"" during one early trial",P049,TRUE
+p050,7to8,4/1/17,removed,m,7.41,removed,CJ,N,issues with loading NEXT experiment (after practice trials),NA,FALSE
+p051,5to6,4/1/17,removed,m,5.6,removed,MZ,N,good; child accidentally advanced through NEXT trial 2 by pressing repeatedly,P051,TRUE
+p052,3to4,4/1/17,removed,f,3.17,removed,CJ,N,,p052,TRUE
+p053,5to6,4/1/17,removed,f,6.67,removed,MZ,N,great; parent survey may be under different ID - p055,P055,FALSE
+p055,5to6,4/1/17,removed,m,4.84,removed,MZ,N,"L1: Russian, Lithuanian, but pretty good English; parent survey may be under different subject ID - p057; did not wish to indicate day of birth",P057,FALSE
+p057,3to4,4/1/17,removed,f,3.58,removed,MZ,N,"L1: Russian, Lithuanian, but pretty good English; parent survey under p60; parent did not wish to indicate day of birth",p060,FALSE
+p059,5to6,4/1/17,removed,f,6.95,removed,MZ,N,great (a lot of repeated trials); parent survey under p061,P061,FALSE
+p063,5to6,4/1/17,removed,m,6.48,removed,MZ,N,great (a lot of repeated trials),P063,TRUE
+p202,5to6,3/30/17,,,,,CJ,,,,
+p203,7to8,3/30/17,,,,,CJ,,,,
