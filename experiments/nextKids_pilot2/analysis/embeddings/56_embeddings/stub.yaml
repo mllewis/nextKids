@@ -1,0 +1,102 @@
+---
+version: "NextKidsPilot_56"
+responses: "../../experiments/nextKids_pilot2/analysis/embeddings/participant_data_pilot_1_2_56M.csv"
+traincode: UncertaintySampling
+testcode: RandomSampling
+proportion: 1
+ndim: [2]
+epsilon: 0.0000001
+randomRestarts: 10
+max_iter_GD: 50
+max_num_passes_SGD: 32
+ActiveLearningMethod: mds
+mu: 0.01
+max_norm: 0
+verbose: true
+
+ExpandFields:
+  - ndim
+
+## EXPANDSTUB VARIABLES
+# ++ ExpandFields
+# The stub file (which this is) is a way to concisely represent all of the
+# parameterizations that you would like to attempt. Rather than specifying a
+# single value of a variable, you can specify a list and then include that
+# variable name as an item under ExpandFields. If more than one variable is
+# listed under ExpandFields, all combinations of the lists associated with
+# those variables will be represented after passing this stub field to the
+# expandStub_yaml.py program.
+
+## EXPERIMENT VARIABLES
+# ++ proportion
+# Proportion is is a value greater than zero and less than or equal to one that
+# indicates what proportion of the responses flagged with the traincode to
+# provide to the optimization routine. The purpose of this is to simulate post
+# hoc the reduction in error associated with acquiring additional responses.
+#
+# ++ testcode
+# Every response has an associated query code. Set test code equal to the
+# query code that identifies the set of responses that will be used to evaluate
+# the embedding. These responses should not have been used to guide adaptive
+# sampling within NEXT. Options are 0 (random) 1 (adaptive) and 2 (CV).
+#
+# ++ traincode
+# Every response has an associated query code. Set train code equal to the
+# query code that identifies the set of responses that will be used to generate
+# the embedding. Options are 0 (random) 1 (adaptive) and 2 (holdout-cross validation).
+#
+# ++ responses
+# A path to a csv file containing the raw participant responses.
+#
+# ++ version
+# This is not actually used by any of the programs that are called, but might
+# be useful when refering back to the results associated with a given batch of
+# jobs.
+
+## OPTIMIZATION VARIABLES
+# ++ epsilon
+# NEXT system default (as of 8/9/2015): 0.01 for Random and Uncertainty Sampling
+# NEXT system default (as of 8/9/2015): 0.00001 for STE and CrowdKernel
+# This value scales the convergence criterion. The lower the value, the
+# stricter the convergence criterion. If the model seems to converge, but the
+# solution is poor (or achieves highly variable error across runs), then this
+# value should be decreased. However, lowering the value will make the
+# optimization run longer. Note that if you intend to set epsilon very low, you
+# may also need to increase max_num_passes_SGD and max_iter_GD to allow more
+# iterations for such a strict criterion to be attained.
+#
+# ++ max_num_passes_SGD
+# NEXT system default (as of 8/9/2015): 16
+# The optimization does stochastic gradient descent (SGD) followed by a
+# gradient descent (GD) optimization. The max number of passes limits the
+# number of passes over all training items (also called epochs) during the SGD
+# step. If this limit is hit, then the optimization has not converged. If the
+# solution is poor, consider raising this to allow the optimization to run for
+# longer.
+#
+# ++ max_iter_GD
+# NEXT system default (as of 8/9/2015): 50
+# The optimization does stochastic gradient descent (SGD) followed by a
+# gradient descent (GD) optimization. The max number of iterations limits the
+# number of GD steps that will be taken. If this limit is hit, then the
+# optimization has not converged. If the solution is poor, consider raising
+# this to allow the optimization to run for longer (although most of the
+# optimization is actually done in the SGD step, so that should be adjusted
+# first).
+#
+# ++ ndim:
+# The number of dimensions to embed the responses into. An integer > 0.
+#
+# ++ randomRestarts
+# NEXT system default (as of 8/9/2015): 1
+# Because computing the embedding involves a nonconvex optimization, the
+# routine may converge to a local minima.  A random restart involves running
+# the whole routine again with a different random initialization. When
+# finished, the program will have computed n+1 embeddings, where n is the
+# number of random restarts specified below. Among these n+1 embeddings, the
+# one with the minimum *training* error will be returned. E.g., 9 random
+# restarts means take the best of 10 embeddings.
+#
+# ++ verbose
+# NEXT system default (as of 8/9/2015): False
+# If True, show some indication of process.

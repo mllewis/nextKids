@@ -1,0 +1,16 @@
+bird.jpg
+cow.jpg
+duck.jpg
+elephant.jpg
+giraffe.jpg
+monkey.jpg
+ostrich.jpg
+owl.jpg
+peacock.jpg
+penguin.jpg
+pig.jpg
+raccoon.jpg
+rooster.jpg
+squirrel.jpg
+swan.jpg
+zebra.jpg

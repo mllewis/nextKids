@@ -1,0 +1,336 @@
+---
+title: NextKids pilot embeddings
+author: Molly Lewis 
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    number_sections: false
+    theme: cerulean
+    toc_float: true
+    code_folding: hide 
+---
+
+******
+******
+
+```{r setup, include = F}
+# load packages
+library(knitr)
+library(rmarkdown)
+library(broom)
+library(tidyverse) 
+library(ggplot2)
+library(stringr)
+library(forcats)
+library(jsonlite)
+library(vegan)
+library(shapes)
+
+opts_chunk$set(echo = T, message = F, warning = F, 
+               error = F, cache = T, tidy = F, fig.height = 4)
+```  
+
+# young-middle-old{.tabset}
+read in embeddings and join in item information
+```{r}
+young = read.csv("34_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "young")
+middle = read.csv("56_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "middle")
+old = read.csv("78_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "old")
+adult = read.csv("adult_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "adult")
+
+labs =read.table("78_embeddings/labels.txt", header = FALSE) %>%
+      rename(item = V1) %>%
+      mutate(item = lapply(str_split(item, ".jpg"), 
+                                   function(x) {x[1]}))
+d = cbind(labs, young) %>%
+  rbind(cbind(labs,middle)) %>%
+  rbind(cbind(labs,old)) %>%
+  rbind(cbind(labs,adult)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "young", "middle", "old")) 
+
+  
+```
+
+```{r}
+dict = read.csv("image_dict.csv") %>%
+  select(images, type, theme) %>%
+  rename(item = images)
+
+d  = left_join(d, dict)
+```
+
+
+### Points
+```{r}
+ggplot(d, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+### Labels
+```{r}
+ggplot(d, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# median age split{.tabset}
+read in embeddings
+```{r}
+low = read.csv("low_age_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "low")
+high = read.csv("high_age_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "high")
+
+
+d.m.age= cbind(labs, low) %>%
+  rbind(cbind(labs,high)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "low", "high")) %>%
+  left_join(dict)
+```
+
+### Points
+```{r}
+ggplot(d.m.age, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+
+```
+
+### Labels
+```{r}
+ggplot(d.m.age, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# median vocab split{.tabset}
+read in embeddings 
+```{r}
+low = read.csv("low_vocab_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "low")
+high = read.csv("high_vocab_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "high")
+
+
+d.m.vocab = cbind(labs, low) %>%
+  rbind(cbind(labs,high)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "low", "high")) %>%
+  left_join(dict)
+```
+
+
+### Points
+```{r}
+ggplot(d.m.vocab, aes(x = x, y = y, color = theme, shape = type)) +
+   geom_point(size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+### Labels
+```{r}
+ggplot(d.m.vocab, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey",
+                                        fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# procrustes transformations
+
+## young-middle-old split
+```{r, eval = F}
+adult = filter(d, group == "adult") %>%
+  select(x, y) %>%
+  as.matrix()
+
+young = filter(d, group == "young") %>%
+  select(x, y) %>%
+  as.matrix()
+
+middle = filter(d, group == "middle") %>%
+  select(x, y) %>%
+  as.matrix()
+
+old = filter(d, group == "old") %>%
+  select(x, y) %>%
+  as.matrix()
+
+## procOPA 
+ya = procOPA(young, adult)
+ma = procOPA(middle, adult)
+oa = procOPA(old, adult)
+
+# xs
+cor(ya$Ahat[,'x'], ya$Bhat[,1])
+cor(ma$Ahat[,'x'], ma$Bhat[,1])
+cor(oa$Ahat[,'x'], oa$Bhat[,1])
+
+# ys
+cor(ya$Ahat[,'y'],ya$Bhat[,2])
+cor(ma$Ahat[,'y'],ma$Bhat[,2])
+cor(oa$Ahat[,'y'],oa$Bhat[,2])
+
+## procrustes 
+ya2 = procrustes(young, adult)
+ma2 = procrustes(middle, adult)
+oa2 = procrustes(old, adult)
+
+cor(ya2$X[,'x'], ya2$Yrot[,1])
+cor(ma2$X[,'x'], ma2$Yrot[,1])
+cor(oa2$X[,'x'], oa2$Yrot[,1])
+
+cor(ya2$X[,'y'], ya2$Yrot[,2])
+cor(ma2$X[,'y'], ma2$Yrot[,2])
+cor(oa2$X[,'y'], oa2$Yrot[,2])
+```
+
+##  median vocab split
+```{r}
+low = filter(d.m.vocab, group == "low" ) %>%
+  select(x, y) %>%
+  as.matrix()
+
+high = filter(d.m.vocab, group == "high" ) %>%
+  select(x, y) %>%
+  as.matrix()
+
+# procOPA
+m = procOPA(low, adult)
+n = procOPA(high, adult)
+
+cor(m$Ahat[,'x'], m$Bhat[,1])
+cor(n$Ahat[,'x'],n$Bhat[,1])
+
+cor(m$Ahat[,'y'], m$Bhat[,2])
+cor(n$Ahat[,'y'], n$Bhat[,2])
+
+
+# procrustes
+m = procrustes(low, adult)
+n = procrustes(high, adult)
+
+cor(m$X[,'x'], m$Yrot[,1])
+cor(n$X[,'x'], n$Yrot[,1])
+
+cor(m$X[,'y'], m$Yrot[,2])
+cor(n$X[,'y'], n$Yrot[,2])
+
+
+ggplot(all.pairs, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_grid(pair~group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+
+## median age split
+```{r}
+low = filter(d.m.age, group == "low" ) %>%
+  select(x, y) %>%
+  as.matrix()
+
+high = filter(d.m.age, group == "high" ) %>%
+  select(x, y) %>%
+  as.matrix()
+
+# procOPA
+m = procOPA(low, adult)
+n = procOPA(high, adult)
+
+cor(m$Ahat[,'x'], m$Bhat[,1])
+cor(n$Ahat[,'x'],n$Bhat[,1])
+
+cor(m$Ahat[,'y'], m$Bhat[,2])
+cor(n$Ahat[,'y'], n$Bhat[,2])
+
+
+# procrustes
+m = procrustes(low, adult)
+n = procrustes(high, adult)
+
+cor(m$X[,'x'], m$Yrot[,1])
+cor(n$X[,'x'], n$Yrot[,1])
+
+cor(m$X[,'y'], m$Yrot[,2])
+cor(n$X[,'y'], n$Yrot[,2])
+```
+
+# to do:
+# looks like there might be better correlations in predicted directtion for some
+# what about the procrustes distance?
+# calculate distance metric
+# what's the best way to visualize this?
+
+

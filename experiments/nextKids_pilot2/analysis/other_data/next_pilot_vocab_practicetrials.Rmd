@@ -25,7 +25,6 @@ library(stringr)
 library(forcats)
 library(jsonlite)
 
-
 opts_chunk$set(echo = T, message = F, warning = F, 
                error = F, cache = T, tidy = F, fig.height = 4)
 ```  
