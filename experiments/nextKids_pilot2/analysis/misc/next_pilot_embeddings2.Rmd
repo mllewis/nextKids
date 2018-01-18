@@ -1,0 +1,712 @@
+---
+title: NextKids pilot embeddings -second run
+author: Molly Lewis 
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    number_sections: false
+    theme: cerulean
+    toc_float: true
+    code_folding: hide 
+---
+
+******
+******
+
+```{r setup, include = F}
+# load packages
+library(knitr)
+library(rmarkdown)
+library(broom)
+library(tidyverse) 
+library(ggplot2)
+library(stringr)
+library(forcats)
+library(jsonlite)
+library(vegan)
+library(shapes)
+library(langcog)
+
+opts_chunk$set(echo = T, message = F, warning = F, 
+               error = F, cache = T, tidy = F, fig.height = 4)
+```  
+
+# young-middle-old{.tabset}
+read in embeddings and join in item information
+```{r}
+young = read.csv("model_34.csv", header = FALSE) %>%
+  mutate(group = "young")
+middle = read.csv("model_56.csv", header = FALSE) %>%
+  mutate(group = "middle")
+old = read.csv("model_78.csv", header = FALSE) %>%
+  mutate(group = "old")
+adult = read.csv("model_adults.csv", header = FALSE) %>%
+  mutate(group = "adult")
+
+labs =read.table("labels.txt", header = FALSE) %>%
+      rename(item = V1) %>%
+      mutate(item = lapply(str_split(item, ".jpg"), 
+                                   function(x) {x[1]}))
+d = cbind(labs, young) %>%
+  rbind(cbind(labs,middle)) %>%
+  rbind(cbind(labs,old)) %>%
+  rbind(cbind(labs,adult)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "young", "middle", "old")) 
+```
+
+```{r}
+dict = read.csv("../image_dict.csv") %>%
+  select(images, type, theme) %>%
+  rename(item = images)
+
+d  = left_join(d, dict)
+```
+
+
+## Points
+```{r}
+ggplot(d, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+## Labels
+```{r}
+ggplot(d, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# median age split{.tabset}
+read in embeddings
+```{r}
+low = read.csv("model_lowage.csv", header = FALSE) %>%
+  mutate(group = "low")
+high = read.csv("model_highage.csv", header = FALSE) %>%
+  mutate(group = "high")
+
+
+d.m.age= cbind(labs, low) %>%
+  rbind(cbind(labs,high)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "low", "high")) %>%
+  left_join(dict)
+```
+
+## Points
+```{r}
+ggplot(d.m.age, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+
+```
+
+## Labels
+```{r}
+ggplot(d.m.age, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# median vocab split{.tabset}
+read in embeddings 
+```{r}
+low = read.csv("model_lowvocab.csv", header = FALSE) %>%
+  mutate(group = "low")
+high = read.csv("model_highvocab.csv", header = FALSE) %>%
+  mutate(group = "high")
+
+d.m.vocab = cbind(labs, low) %>%
+  rbind(cbind(labs,high)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "low", "high")) %>%
+  left_join(dict)
+```
+
+## Points
+```{r}
+ggplot(d.m.vocab, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+## Labels
+```{r}
+ggplot(d.m.vocab, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey",
+                                        fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# group distance
+## young-middle-old split
+```{r}
+# all pairs of items with their feature info
+all.pairs = combn(labs$item, 2) %>%
+  t(.) %>%
+  as.data.frame(.) %>%
+  rename(item1 = V1,
+          item2 = V2) %>%
+  mutate(item1 = as.factor(unlist(item1)),
+         item2 = as.factor(unlist(item2))) %>%
+  left_join(dict, by=c("item1" = "item"))%>%
+  rename(type1 = type,
+         theme1 = theme) %>%
+  left_join(dict, by=c("item2" = "item")) %>%
+  rename(type2 = type,
+         theme2 = theme) %>%
+    mutate(item1 = as.factor(unlist(item1)),
+         item2 = as.factor(unlist(item2)))
+
+getMeanDist <- function(age, semantic_group, d){
+
+  # rename colums for semantitc group
+  if (semantic_group == "type") {
+    g1 = "bird"
+    g2 = "mammal"
+    these.pairs = all.pairs %>%
+      rename(target1 = type1,
+             target2 = type2)
+  } else if (semantic_group == "theme") {
+    g1 = "farm"
+    g2 = "wild"
+    these.pairs = all.pairs %>%
+      rename(target1 = theme1,
+             target2 = theme2) 
+  }
+  
+  # coordinates for this age group
+  coords = d %>%
+    filter(group == age) %>%
+    select(item,x,y)
+  
+  # merge in item coordinates for this age group
+  these.pairs.with.coords = these.pairs %>%
+    select(item1, item2, target1, target2) %>%
+    left_join(coords, by=c("item1" = "item")) %>%
+    rename(x1 = x,
+           y1 = y) %>%
+    left_join(coords, by=c("item2" = "item")) %>%
+    rename(x2 = x,
+           y2 = y)
+  
+  # get dists
+  mean.dists = these.pairs.with.coords %>%
+       rowwise() %>%
+       mutate(dist = sqrt((x2-x1)^2 + (y2-y1)^2)) %>%
+       mutate(collapse_group = ifelse(target1 == g1 & target2 == g1, g1,
+                                    ifelse(target1 == g2 & target2 == g2, g2, 
+                                           paste0("between_", semantic_group)))) %>%
+       group_by(collapse_group)  %>%
+       multi_boot_standard(column = "dist", na.rm = T) %>%
+       mutate(age_group = age,
+              semantic_group = semantic_group)
+  mean.dists
+}
+
+# all combos of interest
+all.groups = expand.grid(c("young", "middle", "old", "adult"),
+            c("theme","type")) 
+  
+all.means <- map2(all.groups$Var1,
+          all.groups$Var2, getMeanDist, d) %>%
+          bind_rows()
+
+ggplot(all.means, aes(x = age_group, y = mean)) +
+  geom_bar(stat ="identity") +
+  geom_linerange(aes(ymax = ci_upper, ymin = ci_lower)) +
+  facet_wrap(~collapse_group) +
+  theme_bw()
+
+relative.means = all.means %>%
+  select(collapse_group, mean, age_group) %>%
+  spread(collapse_group, mean) %>%
+  mutate(relative_bird = bird/between_type,
+         relative_mammal = mammal/between_type,
+         relative_farm = farm/between_theme,
+         relative_wild = wild/between_theme) %>%
+  select(-between_theme, -between_type, -farm, -mammal, -wild, -bird) %>%
+  gather("group", "value", -1)
+
+ggplot(relative.means, aes(x = age_group, y = value)) +
+  geom_bar(stat ="identity") +
+  facet_wrap(~group) +
+  theme_bw()
+```
+
+## median age
+```{r}
+# all combos of interest
+all.groups = expand.grid(c("low", "high"),
+            c("theme","type")) 
+  
+all.means <- map2(all.groups$Var1,
+          all.groups$Var2, getMeanDist, d.m.age) %>%
+          bind_rows() 
+
+ggplot(all.means, aes(x = age_group, y = mean)) +
+  geom_bar(stat ="identity") +
+  geom_linerange(aes(ymax = ci_upper, ymin = ci_lower)) +
+  facet_wrap(~collapse_group) +
+  theme_bw()
+
+relative.means = all.means %>%
+  select(collapse_group, mean, age_group) %>%
+  spread(collapse_group, mean) %>%
+  mutate(relative_bird = bird/between_type,
+         relative_mammal = mammal/between_type,
+         relative_farm = farm/between_theme,
+         relative_wild = wild/between_theme) %>%
+  select(-between_theme, -between_type, -farm, -mammal, -wild, -bird) %>%
+  gather("group", "value", -1)
+
+ggplot(relative.means, aes(x = age_group, y = value)) +
+  geom_bar(stat ="identity") +
+  facet_wrap(~group) +
+  theme_bw()
+
+```
+
+## median vocab
+```{r}
+# all combos of interest
+all.groups = expand.grid(c("low", "high"),
+            c("theme","type")) 
+  
+all.means <- map2(all.groups$Var1,
+          all.groups$Var2, getMeanDist, d.m.vocab) %>%
+          bind_rows() 
+
+ggplot(all.means, aes(x = age_group, y = mean)) +
+  geom_bar(stat ="identity") +
+  geom_linerange(aes(ymax = ci_upper, ymin = ci_lower)) +
+  facet_wrap(~collapse_group) +
+  theme_bw()
+
+relative.means = all.means%>%
+  select(collapse_group, mean, age_group) %>%
+  spread(collapse_group, mean) %>%
+  mutate(relative_bird = bird/between_type,
+         relative_mammal = mammal/between_type,
+         relative_farm = farm/between_theme,
+         relative_wild = wild/between_theme) %>%
+  select(-between_theme, -between_type, -farm, -mammal, -wild, -bird) %>%
+  gather("group", "value", -1)
+
+ggplot(relative.means, aes(x = age_group, y = value)) +
+  geom_bar(stat ="identity") +
+  facet_wrap(~group) +
+  theme_bw() 
+```
+
+
+# procrustes transformations
+
+## young-middle-old split
+```{r, eval = F}
+adult = filter(d, group == "adult") %>%
+  select(x, y) %>%
+  as.matrix()
+
+young = filter(d, group == "young") %>%
+  select(x, y) %>%
+  as.matrix()
+
+middle = filter(d, group == "middle") %>%
+  select(x, y) %>%
+  as.matrix()
+
+old = filter(d, group == "old") %>%
+  select(x, y) %>%
+  as.matrix()
+
+## procOPA 
+ya = procOPA(young, adult)
+ma = procOPA(middle, adult)
+oa = procOPA(old, adult)
+
+rd = rbind(
+cbind(ya$Ahat[,'x'],ya$Ahat[,'y'],ya$Bhat[,1],ya$Bhat[,2]),
+cbind(ma$Ahat[,'x'],ma$Ahat[,'y'],ma$Bhat[,1],ma$Bhat[,2]),
+cbind(oa$Ahat[,'x'],oa$Ahat[,'y'],oa$Bhat[,1],oa$Bhat[,2]))  %>%
+  as.data.frame() %>%
+  mutate(group =  c(rep("young", 16), rep("middle", 16), rep("old", 16)))
+
+names(rd) = c("x1", "y1", "x2", "y2", "group")
+
+means = rd %>%
+  mutate(group = as.factor(group)) %>%
+  mutate(dist = sqrt((x2-x1)^2 + (y2-y1)^2))  %>%
+  group_by(group) %>%
+  multi_boot_standard(column = "dist", na.rm = T)
+
+ggplot(means, aes(x= dist)) +
+  geom_histogram() +
+  facet_wrap(~group)
+# xs
+cor(ya$Ahat[,'x'], ya$Bhat[,1])
+cor(ma$Ahat[,'x'], ma$Bhat[,1])
+cor(oa$Ahat[,'x'], oa$Bhat[,1])
+
+# ys
+cor(ya$Ahat[,'y'],ya$Bhat[,2])
+cor(ma$Ahat[,'y'],ma$Bhat[,2])
+cor(oa$Ahat[,'y'],oa$Bhat[,2])
+
+## procrustes 
+ya2 = procrustes(young, adult)
+ma2 = procrustes(middle, adult)
+oa2 = procrustes(old, adult)
+
+cor(ya2$X[,'x'], ya2$Yrot[,1])
+cor(ma2$X[,'x'], ma2$Yrot[,1])
+cor(oa2$X[,'x'], oa2$Yrot[,1])
+
+cor(ya2$X[,'y'], ya2$Yrot[,2])
+cor(ma2$X[,'y'], ma2$Yrot[,2])
+cor(oa2$X[,'y'], oa2$Yrot[,2])
+
+rd = rbind(
+      cbind(ya2$X[,'x'],ya2$X[,'y'],ya2$Yrot[,1],ya2$Yrot[,2]),
+      cbind(ma2$X[,'x'],ma2$X[,'y'],ma2$Yrot[,1],ma2$Yrot[,2]),
+      cbind(oa2$X[,'x'],oa2$X[,'y'],oa2$Yrot[,1],oa2$Yrot[,2]))  %>%
+      as.data.frame() %>%
+      mutate(group =  c(rep("young",16), rep("middle", 16), rep("old", 16)),
+             item = unlist(rep(labs$item,3)) )%>%
+               left_join(dict)
+
+names(rd)[1:5] = c("x1", "y1", "x2", "y2", "group")
+
+m = rd %>%
+  mutate(group = as.factor(group)) %>%
+  mutate(dist = sqrt((x2-x1)^2 + (y2-y1)^2))  %>%
+  group_by(group, theme, type) %>%
+  multi_boot_standard(column = "dist", na.rm = T) %>%
+  kable()
+
+ggplot(rd, aes(x = x1, y = y2)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_grid(pair~group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+
+ggplot(m, aes(y=mean, x = group)) +
+   geom_point( size = 3) +
+   facet_grid(type~theme) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+##  median vocab split
+```{r, eval = F}
+low = filter(d.m.vocab, group == "low") %>%
+  select(x, y) %>%
+  as.matrix()
+
+high = filter(d.m.vocab, group == "high") %>%
+  select(x, y) %>%
+  as.matrix()
+
+# procOPA
+m = procOPA(low, adult)
+n = procOPA(high, adult)
+
+cor(m$Ahat[,'x'], m$Bhat[,1])
+cor(n$Ahat[,'x'], n$Bhat[,1])
+
+cor(m$Ahat[,'y'], m$Bhat[,2])
+cor(n$Ahat[,'y'], n$Bhat[,2])
+
+# procrustes
+m = procrustes(low, adult)
+n = procrustes(high, adult)
+
+cor(m$X[,'x'], m$Yrot[,1])
+cor(n$X[,'x'], n$Yrot[,1])
+
+cor(m$X[,'y'], m$Yrot[,2])
+cor(n$X[,'y'], n$Yrot[,2])
+
+
+ggplot(all.pairs, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_grid(pair~group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+
+## median age split
+```{r, eval = F}
+low = filter(d.m.age, group == "low" ) %>%
+  select(x, y) %>%
+  as.matrix()
+
+high = filter(d.m.age, group == "high" ) %>%
+  select(x, y) %>%
+  as.matrix()
+
+# procOPA
+m = procOPA(low, adult)
+n = procOPA(high, adult)
+
+cor(m$Ahat[,'x'], m$Bhat[,1])
+cor(n$Ahat[,'x'],n$Bhat[,1])
+
+cor(m$Ahat[,'y'], m$Bhat[,2])
+cor(n$Ahat[,'y'], n$Bhat[,2])
+
+
+# procrustes
+m = procrustes(low, adult)
+n = procrustes(high, adult)
+
+cor(m$X[,'x'], m$Yrot[,1])
+cor(n$X[,'x'], n$Yrot[,1])
+
+cor(m$X[,'y'], m$Yrot[,2])
+cor(n$X[,'y'], n$Yrot[,2])
+```
+
+## Procrustes on young and middle only
+
+```{r}
+young = filter(d, group == "young") %>%
+  select(x, y) %>%
+  as.matrix()
+
+middle = filter(d, group == "middle") %>%
+  select(x, y) %>%
+  as.matrix()
+
+ym = procOPA(young, middle)
+m = rbind(ym$Ahat,ym$Bhat) %>%
+  as.data.frame() %>%
+  mutate(group = c(rep("young",16), rep("middle", 16)),
+         item = c(unlist(labs$item), unlist(labs$item))) %>%
+  left_join(dict)
+
+ym = procrustes(young, middle)
+m = rbind(ym$X,ym$Yrot) %>%
+  as.data.frame() %>%
+  mutate(group = c(rep("young",16), rep("middle", 16)),
+         item = c(unlist(labs$item), unlist(labs$item))) %>%
+  left_join(dict)
+```
+
+
+## Points
+```{r}
+ggplot(m, aes(x = x, y = y, color = type)) +
+   geom_point(size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+## Labels
+```{r}
+ggplot(m, aes(x = x, y = y)) +
+   geom_text(aes(label=item, color = type), size = 3) +
+   facet_grid(~group) +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "none")
+```
+
+## young-middle-old split
+```{r}
+# all pairs of items with their feature info
+all.pairs2 = expand.grid(unlist(labs$item),unlist(labs$item)) %>%
+  rename(item1 = Var1,
+         item2 = Var2)
+
+getMeanDist2 <- function(age, d){
+  # coordinates for this age group
+  coords = d %>%
+    filter(group == age) %>%
+    select(item,x,y)
+  
+  # merge in item coordinates for this age group
+  these.pairs.with.coords = all.pairs2 %>%
+    select(item1, item2) %>%
+    left_join(coords, by=c("item1" = "item")) %>%
+    rename(x1 = x,
+           y1 = y) %>%
+    left_join(coords, by=c("item2" = "item")) %>%
+    rename(x2 = x,
+           y2 = y)
+  
+  # get dists
+  mean.dists = these.pairs.with.coords %>%
+       rowwise() %>%
+       mutate(dist = sqrt((x2-x1)^2 + (y2-y1)^2)) %>%
+       mutate(group = age)
+
+  mean.dists
+}
+
+
+all.dists <- map(c("young", "middle", "adult"), getMeanDist2, d) %>%
+          bind_rows() %>%
+  left_join(dict, by=c("item1" = "item"))%>%
+  rename(type1 = type,
+         theme1 = theme) %>%
+  left_join(dict, by=c("item2" = "item")) %>%
+  rename(type2 = type,
+         theme2 = theme) 
+
+### THEME
+all.dists.item.ms = all.dists %>%
+    group_by(item1, theme2, group) %>%
+    summarize(mean = mean(dist)) 
+    
+all.dists.item.ms.gp = all.dists.item.ms %>%
+  left_join(dict, by=c("item1" = "item")) %>%
+  rename(type1 = type,
+         theme1 = theme) %>%
+  select(group, item1, theme1, theme2, mean) %>%
+  mutate(category = ifelse(theme1 == theme2, "within", "between")) %>%
+  ungroup() %>%
+  select(-theme1, -theme2) %>%
+  group_by(group, item1) %>%
+  spread(category, mean) %>%
+  mutate(relative.theme.dist = within/between)
+
+ms = all.dists.item.ms.gp %>%
+  left_join(select(dict, -type), by=c("item1" = "item")) %>%
+  rename(theme1 = theme) %>%
+  group_by(theme1, group) %>%
+  multi_boot_standard(column = "relative.theme.dist") %>%
+  mutate(group = fct_relevel(group, "young", "middle", "old", "adult")) 
+
+ggplot(ms, aes(x = group, y = mean)) +
+  geom_bar(stat ="identity") +
+  geom_linerange(aes(ymax = ci_upper, ymin = ci_lower)) +
+  facet_wrap(~theme1) +
+  theme_bw()
+
+
+### TYPE
+all.dists.item.ms = all.dists %>%
+    group_by(item1, type2, group) %>%
+    summarize(mean = mean(dist)) 
+    
+all.dists.item.ms.gp = all.dists.item.ms %>%
+  left_join(dict, by=c("item1" = "item")) %>%
+  rename(type1 = type,
+         theme1 = theme) %>%
+  select(group, item1, type1, type2, mean) %>%
+  mutate(category = ifelse(type1 == type2, "within", "between")) %>%
+  ungroup() %>%
+  select(-type1, -type2) %>%
+  group_by(group, item1) %>%
+  spread(category, mean) %>%
+  mutate(relative.type.dist = within/between)
+
+ms = all.dists.item.ms.gp %>%
+  left_join(select(dict, -theme), by=c("item1" = "item")) %>%
+  rename(type1 = type) %>%
+  group_by(type1, group) %>%
+  multi_boot_standard(column = "relative.type.dist") %>%
+  mutate(group = fct_relevel(group, "young", "middle", "old", "adult")) 
+
+ggplot(ms, aes(x = group, y = mean)) +
+  geom_bar(stat ="identity") +
+  geom_linerange(aes(ymax = ci_upper, ymin = ci_lower)) +
+  facet_wrap(~type1) +
+  theme_bw()
+```
+
+
+

@@ -8,6 +8,7 @@ misc/*
 *.Rhistory
 *Exp-Details.txt
 *.pyc
+*auth.json
 
 # LaTeX #
 *.bet

@@ -1,0 +1,201 @@
+---
+title: NextKids pilot embeddings
+author: Molly Lewis 
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    number_sections: false
+    theme: cerulean
+    toc_float: true
+    code_folding: hide 
+---
+
+******
+******
+
+```{r setup, include = F}
+# load packages
+library(knitr)
+library(rmarkdown)
+library(broom)
+library(tidyverse) 
+library(ggplot2)
+library(stringr)
+library(forcats)
+library(jsonlite)
+library(vegan)
+library(shapes)
+
+opts_chunk$set(echo = T, message = F, warning = F, 
+               error = F, cache = T, tidy = F, fig.height = 4)
+```  
+
+# young-middle-old{.tabset}
+read in embeddings and join in item information
+```{r}
+young = read.csv("34_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "young")
+middle = read.csv("56_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "middle")
+old = read.csv("78_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "old")
+adult = read.csv("adult_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "adult")
+
+labs =read.table("78_embeddings/labels.txt", header = FALSE) %>%
+      rename(item = V1) %>%
+      mutate(item = lapply(str_split(item, ".jpg"), 
+                                   function(x) {x[1]}))
+d = cbind(labs, young) %>%
+  rbind(cbind(labs,middle)) %>%
+  rbind(cbind(labs,old)) %>%
+  rbind(cbind(labs,adult)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "young", "middle", "old")) 
+
+  
+```
+
+```{r}
+dict = read.csv("image_dict.csv") %>%
+  select(images, type, theme) %>%
+  rename(item = images)
+
+d  = left_join(d, dict)
+```
+
+
+## Points
+```{r}
+ggplot(d, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+## Labels
+```{r}
+ggplot(d, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# median age split{.tabset}
+read in embeddings
+```{r}
+low = read.csv("low_age_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "low")
+high = read.csv("high_age_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "high")
+
+
+d.m.age= cbind(labs, low) %>%
+  rbind(cbind(labs,high)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "low", "high")) %>%
+  left_join(dict)
+```
+
+## Points
+```{r}
+ggplot(d.m.age, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+
+```
+
+## Labels
+```{r}
+ggplot(d.m.age, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# median vocab split{.tabset}
+read in embeddings 
+```{r}
+low = read.csv("low_vocab_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "low")
+high = read.csv("high_vocab_embeddings/model.csv", header = FALSE) %>%
+  mutate(group = "high")
+
+
+d.m.vocab = cbind(labs, low) %>%
+  rbind(cbind(labs,high)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "low", "high")) %>%
+  left_join(dict)
+```
+
+
+## Points
+```{r}
+ggplot(d.m.vocab, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+## Labels
+```{r}
+ggplot(d.m.vocab, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_wrap(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey",
+                                        fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```

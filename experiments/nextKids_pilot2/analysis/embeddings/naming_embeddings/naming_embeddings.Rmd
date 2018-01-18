@@ -1,0 +1,261 @@
+---
+title: NextKids pilot embeddings based on naming data
+author: Molly Lewis 
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: false
+    number_sections: false
+    theme: cerulean
+    toc_float: true
+    code_folding: hide 
+---
+
+******
+******
+
+```{r setup, include = F}
+# load packages
+library(knitr)
+library(rmarkdown)
+library(broom)
+library(tidyverse) 
+library(ggplot2)
+library(stringr)
+library(forcats)
+library(jsonlite)
+library(langcog)
+
+opts_chunk$set(echo = T, message = F, warning = F, 
+               error = F, cache = F, tidy = F, fig.height = 4)
+```  
+
+# Embeddings 
+These are the embeddings based on a median split of accuracy in the naming task, under two schemes. Scheme naming1: strict correct (e.g. correct iff pig == pig); Scheme naming2: Rough correct (correct if pig == pig | piggie).
+
+## naming1{.tabset}
+
+```{r}
+low1 = read.csv("model_low_naming1.csv", header = FALSE) %>%
+  mutate(group = "low1")
+high1 = read.csv("model_high_naming1.csv", header = FALSE) %>%
+  mutate(group = "high1")
+
+labs =read.table("labels.txt", header = FALSE) %>%
+      rename(item = V1) %>%
+      mutate(item = lapply(str_split(item, ".jpg"), 
+                                   function(x) {x[1]}))
+d = cbind(labs, low1) %>%
+  rbind(cbind(labs,high1)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "low1", "high1")) 
+```
+
+```{r}
+dict = read.csv("image_dict.csv") %>%
+  select(images, type, theme) %>%
+  rename(item = images)
+
+d  = left_join(d, dict)
+```
+
+
+### Points
+```{r}
+ggplot(d, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+### Labels
+```{r}
+ggplot(d, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+## naming2{.tabset}
+```{r}
+low2 = read.csv("model_low_naming2.csv", header = FALSE) %>%
+  mutate(group = "low2")
+high2 = read.csv("model_high_naming2.csv", header = FALSE) %>%
+  mutate(group = "high2")
+
+labs =read.table("labels.txt", header = FALSE) %>%
+      rename(item = V1) %>%
+      mutate(item = lapply(str_split(item, ".jpg"), 
+                                   function(x) {x[1]}))
+d = cbind(labs, low2) %>%
+  rbind(cbind(labs,high2)) %>%
+  rename(x = V1,
+         y = V2) %>%
+  mutate(item = as.factor(unlist(item))) %>%
+  mutate(group = fct_relevel(group, "low2", "high2")) 
+```
+
+```{r}
+d  = left_join(d, dict)
+```
+
+
+### Points
+```{r}
+ggplot(d, aes(x = x, y = y, color = type, shape = theme)) +
+   geom_point(size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.position = "bottom")
+```
+
+### Labels
+```{r}
+ggplot(d, aes(x = x, y = y)) +
+   geom_text(aes(label=item), size = 3) +
+   facet_grid(~group, scales = "free") +
+   theme_bw() +
+   theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        strip.text.x = element_text(size = 14),
+        strip.background = element_rect(colour="grey", fill="grey"),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+```
+
+# Pairwise distances{.tabset}
+```{r}
+# all pairs of items with their feature info
+all.pairs2 = expand.grid(unlist(labs$item),unlist(labs$item)) %>%
+  rename(item1 = Var1,
+         item2 = Var2)
+
+getMeanDist2 <- function(group_name, d){
+  # coordinates for this age group
+  coords = d %>%
+    filter(group == group_name) %>%
+    select(item,x,y)
+  
+  # merge in item coordinates for this age group
+  these.pairs.with.coords = all.pairs2 %>%
+    select(item1, item2) %>%
+    left_join(coords, by=c("item1" = "item")) %>%
+    rename(x1 = x,
+           y1 = y) %>%
+    left_join(coords, by=c("item2" = "item")) %>%
+    rename(x2 = x,
+           y2 = y)
+  
+  # get dists
+  mean.dists = these.pairs.with.coords %>%
+       rowwise() %>%
+       mutate(dist = sqrt((x2-x1)^2 + (y2-y1)^2)) %>%
+       mutate(group = group_name)
+
+  mean.dists
+}
+
+all.dists <- map(c("low2", "high2"), getMeanDist2, d) %>%
+          bind_rows() %>%
+  left_join(dict, by=c("item1" = "item"))%>%
+  rename(type1 = type,
+         theme1 = theme) %>%
+  left_join(dict, by=c("item2" = "item")) %>%
+  rename(type2 = type,
+         theme2 = theme)
+```
+
+## theme{.tabset}
+```{r}
+all.dists.item.ms = all.dists %>%
+    group_by(item1, theme2, group) %>%
+    summarize(mean = mean(dist)) 
+    
+all.dists.item.ms.gp = all.dists.item.ms %>%
+  left_join(dict, by=c("item1" = "item")) %>%
+  rename(type1 = type,
+         theme1 = theme) %>%
+  select(group, item1, theme1, theme2, mean) %>%
+  mutate(category = ifelse(theme1 == theme2, "within", "between")) %>%
+  ungroup() %>%
+  select(-theme1, -theme2) %>%
+  group_by(group, item1) %>%
+  spread(category, mean) %>%
+  mutate(relative.theme.dist = within/between)
+
+ms = all.dists.item.ms.gp %>%
+  left_join(select(dict, -type), by=c("item1" = "item")) %>%
+  rename(theme1 = theme) %>%
+  group_by(theme1, group) %>%
+  multi_boot_standard(column = "relative.theme.dist") %>%
+  mutate(group = fct_relevel(group, "low2", "high2")) 
+
+ggplot(ms, aes(x = group, y = mean)) +
+  geom_bar(stat ="identity") +
+  geom_linerange(aes(ymax = ci_upper, ymin = ci_lower)) +
+  facet_wrap(~theme1) +
+  xlab("naming group") +
+  ylim(0,1.2)+
+  ylab("relative mean pairwise distance") +
+  theme_bw()
+```
+
+## type{.tabset}
+```{r}
+all.dists.item.ms = all.dists %>%
+    group_by(item1, type2, group) %>%
+    summarize(mean = mean(dist)) 
+    
+all.dists.item.ms.gp = all.dists.item.ms %>%
+  left_join(dict, by=c("item1" = "item")) %>%
+  rename(type1 = type,
+         theme1 = theme) %>%
+  select(group, item1, type1, type2, mean) %>%
+  mutate(category = ifelse(type1 == type2, "within", "between")) %>%
+  ungroup() %>%
+  select(-type1, -type2) %>%
+  group_by(group, item1) %>%
+  spread(category, mean) %>%
+  mutate(relative.type.dist = within/between)
+
+ms.crit = all.dists.item.ms.gp %>%
+  left_join(select(dict, -theme), by=c("item1" = "item")) %>%
+  rename(type1 = type) %>%
+  group_by(type1, group) %>%
+  multi_boot_standard(column = "relative.type.dist") %>%
+  mutate(group = fct_relevel(group, "low2", "high2")) 
+
+ggplot(ms.crit, aes(x = group, y = mean)) +
+  geom_bar(stat ="identity") +
+  geom_linerange(aes(ymax = ci_upper, ymin = ci_lower)) +
+  facet_wrap(~type1) +
+  xlab("naming group") +
+  ylim(0,1.2)+
+  ylab("relative mean pairwise distance") +
+  theme_bw()
+```

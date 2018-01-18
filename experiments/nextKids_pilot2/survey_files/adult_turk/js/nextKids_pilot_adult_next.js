@@ -13,9 +13,6 @@ var obj = ["table", "chair", "plane", "strawberry", "trombone", "banana"];
 // google spreadsheet key to next links (note: make sure publish google doc)
 var next_link_key = "1-QGzQBfKb70BX0nEBV1r9fhG1zwb8fwbTUruYkjTFS4"
 
-// php url for saving data (note: permissions of csv file must be set to write and apply!)
-var php_url = "http://sapir.psych.wisc.edu/~molly/nextKids2b/next_practice/nextkids2_save_practice_results.php"
-
 // global variables
 var counter = 1
 var next_bin
@@ -26,7 +23,7 @@ var next_mid_link
 var next_old_link
 var next_test_link
 var next_adult_link
-var checkedItems = {}
+var next_adult_turk_link
 
 // ---------------- HELPER ------------------
 // show slide function
@@ -61,8 +58,11 @@ getUrls = function(data, tabletop){
 	next_old_link = urls[0][2]
 	next_test_link = urls[0][3]
 	next_adult_link = urls[0][5]
+	next_adult_turk_link = urls[0][6]
 
 }
+
+
 
 var tabletop = Tabletop.init({ 
  				   key: next_link_key,
@@ -83,27 +83,15 @@ showSlide("instructions");
 // MAIN EXPERIMENT
 var experiment = {
 
-	subid: "",
+	subid: Math.floor((Math.random() * 10000000000) + 1), // random number
 		//inputed at beginning of experiment
 	date: getCurrentDate(),
 		//the date of the experiment
 	timestamp: getCurrentTime(),
 
-	//Checks to see whether the experimenter inputted appropriate values before moving on with the experiment
-	checkInput: function() {
-		//alert($("#myForm input[type='radio']:checked").val())
-
-		//subject ID
-  		if (document.getElementById("subjectID").value.length < 1 | !$("#myForm input[type='radio']:checked").val()) {
-			$("#checkMessage").html('<font color="red">You must input subject information</font>');
-			return;
-		}
-  		experiment.subid = document.getElementById("subjectID").value;
-		experiment.group = $("#myForm input[type='radio']:checked").val()
-
-		experiment.practiceTrial()
-	}, 
-
+	startExperiment: function() {
+		showSlide("instructions2")
+	},
 
 	practiceTrial: function () { 
 		setTimeout(function() {clickDisabled = false, 2000})
@@ -134,16 +122,8 @@ var experiment = {
 					experiment.chosenpic = obj[2];
 				}
 
-				if (experiment.group != "test") {
-					// save data to data file
-					var dataforRound = experiment.subid; 
-					 dataforRound += "," + experiment.date + "," + experiment.timestamp + "," + experiment.group  + ",practice_trial," + counter + "," + experiment.chosenpic + "\n";
-					 $.post(php_url, {postresult_string : dataforRound});
-				}
-
 				//remove the pictures from the image array that have been used, and the word from the wordList that has been used
 				obj.splice(0, 3);
-
 
 				setTimeout(function() {
 					if (counter == 2) {
@@ -161,22 +141,11 @@ var experiment = {
 	    })
 	},
 
-	go_to_next_expt: function() {
-		var link  
-		if (experiment.group == "young"){
-			link = next_young_link
-		} else if (experiment.group == "middle"){
-			link = next_mid_link
-		} else if (experiment.group == "old"){
-			link = next_old_link
-		} else if (experiment.group == "test"){
-			link = next_test_link
-		} else if (experiment.group == "adult"){
-			link = next_adult_link
-		}
-		
+	go_to_next_expt: function() {	
 		 //appends subid to link in order to pass to NEXT framework
-		window.location.href = link + "?participant=" + experiment.subid
+		window.location.href = "http://ec2-54-245-188-12.us-west-2.compute.amazonaws.com:8000/query/query_page/query_page/f06ed513bf263f9f6ab767e718ab47"
+		// window.location.href = "http://ec2-54-245-188-12.us-west-2.compute.amazonaws.com:8000/query/query_page/query_page/f06ed513bf263f9f6ab767e718ab47?participant=" + experiment.subid
+
 	}
 }
 		

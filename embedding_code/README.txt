@@ -55,6 +55,11 @@ Example for 1 through 5 dimensions:
 
 $ python ../nextmds/generateEmbedding.py 0 1 2 3 4  
 
+In one go:
+python expandStub_yaml.py stub.yaml
+python setupJobs_yaml.py master.yaml 
+python ../nextmds/generateEmbedding.py 0
+
 
 ## DEBUGGING ##
 

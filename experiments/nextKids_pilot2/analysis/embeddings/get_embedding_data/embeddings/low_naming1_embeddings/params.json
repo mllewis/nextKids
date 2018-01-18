@@ -1,0 +1,16 @@
+{
+    "ActiveLearningMethod": "mds", 
+    "epsilon": 1e-07, 
+    "max_iter_GD": 50, 
+    "max_norm": 0, 
+    "max_num_passes_SGD": 32, 
+    "mu": 0.01, 
+    "ndim": 2, 
+    "proportion": 1, 
+    "randomRestarts": 10, 
+    "responses": "../../experiments/nextKids_pilot2/analysis/embeddings/get_embedding_data/data_for_embeddings/participant_data_pilot_1_2_low_naming1M.csv", 
+    "testcode": "RandomSampling", 
+    "traincode": "UncertaintySampling", 
+    "verbose": true, 
+    "version": "x"
+}

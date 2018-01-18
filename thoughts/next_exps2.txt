@@ -1,0 +1,51 @@
+
+
+Food domain - cultural and so more variability
+* novel?
+* real? [get parents to talk about real? domain]
+
+use next- random sample
+get lots of data - get parents to do this at home?
+
+[parents ]
+
+* cultural variability (pairings) - real foods 
+
+* novel fruit: word learning
+
+3 proposals:
+- descrkptive
+- embeddings -> vocab
+- vocab -> embeddings
+
+* do adult version of experiment to look at coordination next fall
+
+* presence of othe item teaching affecting new 
+
+Q1: How does experience shaping semantic space?
+- with parents
+- age
+- labels
+
+- push it around with task demands/directions -> can they flexibly shift? [group level]
+- have parents read different books + change conceptula space
+- learning a new label -> reorganize space (novel labels)
+
+dimensions of organization
+certainty about clusters
+
+learning a new word ~ semantic space
+
+change over development (across kids)
+related to parents/experience + vocabulary  (within kids)
+
+different exemplars ()
+
+
+PREDICTION: More discrete if you get labels/facts in a category learning task (categorical perception in kids with labels)
+
+Show prototype - get label; biological fact or co-occurence fact or no fact
+[]
+
+1 dimensionsal 
+

@@ -1,0 +1,16 @@
+{
+    "title":               "Picture game",
+    "description":         "Which pictures go together? (5 mins)",
+    "keywords":            "Picture game",
+    "url":                 "http://langcog.stanford.edu/expts/MLL/nextKids_adult/nextKids_pilot_adult_next.html",
+    "frame_height":         450,
+    "assignment_duration":  "1 hour",
+    "auto_approval_delay":  "10 minutes",
+    "reward":               2.00,
+    "experimenter":         "Molly Lewis",
+    "server_log_path":      "http://langcog.stanford.edu/cgi-bin/cosub/log_submission.php",
+    "qualifications": {
+        "location": "US",
+        "approval_percentage": 90
+    }
+}

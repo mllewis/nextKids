@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <title>Nextkids3</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js" type="text/javascript"></script>
+
+
+
+    <link rel="stylesheet" href="css/nextKids3.css" />
+    <meta name="viewport" content="initial-scale=1.0" /> 
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="js/google-spreadsheet.js"></script>
+
+    </head>
+  <body>
+        
+
+    <!-- WELCOME SLIDE -->
+    <div class="slide" id="instructions">
+    <br>
+      <img src="images/wisconsinlogo.png" alt="UW-Madison" style="display: block;margin: auto;"/>
+          <br>
+         
+        <p class="block-text">Welcome to the NextKids study (NEXT task). </p>
+   <br>
+        <p class="block-text">
+         <b> subject ID: </b>
+          <input type="text" id="subjectID" name="subjectID" size="30"> 
+        </p>
+        <br>
+ 
+
+    <p><b>Condition: </b> </p>
+         <div class="radio" > 
+         <form id="condition_selector">
+         <p> <input  type="radio" name="conditionrad" value ="perceptual">Perceptual</p>
+         <p> <input  type="radio" name="conditionrad" value ="taxonomic">Taxonomic</p>
+         <p ><input type="radio" name="conditionrad" value="thematic">Thematic</p>
+          </form>
+          </div>
+
+          <br>
+           <br>
+         <button type="button" style="display: block;margin: auto;" class="btn btn-large btn-danger" onClick="this.blur(); experiment.checkInput()">Start</button>
+
+
+        <div id="checkMessage"> </div> <!--dynamically built in javascript-->
+    </div>
+
+  <!-- PICTURE SLIDE -->
+  <div class="slide" id="triadSlide">
+
+    <div class="container-fluid">
+      <div class="row" style ="height:50%; display: block;">
+        <div class="col-xs-12" id="center"> </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-6" id="left" style ="height:20%; display: block;" class="pic"> </div>
+        <div class="col-xs-6" id="right" class="pic"> </div>
+      </div>
+    </div>
+  </div>
+ 
+    <script src="js/nextKids3.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,154 @@
+---
+title: NextKids pilot - prep raw responses for embeddings
+author: Molly Lewis 
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    number_sections: false
+    theme: cerulean
+    toc_float: true
+    code_folding: hide 
+---
+
+******
+******
+
+```{r setup, include = F}
+# load packages
+library(knitr)
+library(rmarkdown)
+library(broom)
+library(tidyverse) 
+library(ggplot2)
+library(stringr)
+library(forcats)
+library(jsonlite)
+library(magrittr)
+
+opts_chunk$set(echo = T, message = F, warning = F, 
+               error = F, cache = T, tidy = F, fig.height = 4)
+```  
+
+## read in raw responses
+```{r}
+young = read.csv("../../../data/pilot1_and_2/participant_data_pilot_1_2_34.csv") %>%
+  mutate(exp = "young")
+middle = read.csv("../../../data/pilot1_and_2/participant_data_pilot_1_2_56.csv")  %>%
+  mutate(exp = "middle")
+old = read.csv("../../../data/pilot1_and_2/participant_data_pilot_1_2_78.csv")  %>%
+  mutate(exp = "old")
+adult = read.csv("../../../data/adult/participant_data_adult.csv")  %>%
+  mutate(exp = "adult")
+```
+
+Put in format of "example-responses.csv"
+```{r}
+d = rbind(young, middle) %>%
+    rbind(old) %>%
+    rbind(adult) %>%
+    select(X, timestamp_query_generated, participant_uid, target_center, target_left, target_right, target_winner, alg_label,response_time, exp)
+
+d %<>%
+     mutate(Participant.ID.sub = lapply(str_split(participant_uid, "_"), 
+                                   function(x) {x[2]}),
+            participant_uid = tolower(participant_uid)) %>%
+      mutate_each(funs(lapply(str_split(., ".com/"), 
+                                   function(x) {x[2]})), target_center, target_left, target_right, target_winner) 
+
+d.munged = d %>%
+  rename(Timestamp = timestamp_query_generated,
+         Participant.ID = participant_uid,
+         Center = target_center,
+         Left = target_left,
+         Right = target_right,
+         Answer = target_winner,
+         Alg.Label = alg_label,
+         Response.Time..s. = response_time,
+         Condition = exp) %>%
+  mutate(Session = Condition) %>%
+  select(Participant.ID,	Timestamp,	Center,	Left,	Right,	Answer,	Alg.Label,	Response.Time..s.,	Participant.ID.sub,	Condition,	Session) %>%
+  mutate_each(funs(as.factor(unlist(.))))  %>%
+  mutate(Timestamp = "2017-01-01 07:35:01.01") #this is just a random time so the date is in the right format for the python script
+
+## remove other tral types from pilot1
+d.munged = d.munged %>%
+  filter(Alg.Label == "RandomSampling" | Alg.Label =="UncertaintySampling") 
+
+```
+
+## Median split on naming
+```{r}
+demo = read.csv("../../../data/pilot1_and_2/nextKids_1_2_combined_other_data.csv") %>%
+  mutate(total_words = ifelse(total_words == 0 | age_group == "old", NA, total_words)) %>%
+  select(-X)
+```
+
+Medin split based on exact match of intended label (naming1)
+```{r}
+name = read.csv("../../../data/other/AnimalNaming_04032017.csv")
+name1  = name %>%  
+         mutate(isCorrect = ifelse(response == as.character(animals),1,0))
+
+name.summary = name1 %>%
+  group_by(subjCode) %>%
+  summarize(prop.naming.correct = sum(isCorrect)/n()) %>%
+  mutate(subid = tolower(subjCode)) %>%
+  select(-subjCode)
+
+MEDIAN.NAMING = median(name.summary$prop.naming.correct, na.rm = T)
+
+name.summary %<>% mutate(name.median.1 = ifelse(prop.naming.correct > MEDIAN.NAMING,
+                                              "high", "low"),
+                         name.median.1 = as.factor(name.median.1))
+
+demo %<>%
+  left_join(name.summary %>% select(subid, name.median.1))
+```
+
+Median split counting -ie as correct (pig == piggie) (naming2)
+```{r}
+name2 = name %>% 
+        mutate(ie_word = ifelse(str_sub(response, start= -2) == "ie", 1, 0),
+              isCorrect = ifelse(response == as.character(animals) | ie_word == 1, 1, 0))
+
+
+name.summary2 = name2 %>%
+  group_by(subjCode) %>%
+  summarize(prop.naming.correct = sum(isCorrect)/n()) %>%
+  mutate(subid = tolower(subjCode)) %>%
+  select(-subjCode)
+
+MEDIAN.NAMING = median(name.summary$prop.naming.correct, na.rm = T)
+
+name.summary2 %<>% mutate(name.median.2 = ifelse(prop.naming.correct > MEDIAN.NAMING,
+                                              "high", "low"),
+                         name.median.2 = as.factor(name.median.2))
+
+demo %<>%
+  left_join(name.summary2 %>% select(subid, name.median.2))
+```
+
+```{r}
+d.naming = d.munged %>%
+  left_join(select(demo, subid, name.median.2, name.median.1), by = c("Participant.ID.sub" = "subid")) %>%
+  filter(!is.na(name.median.2) & !is.na(name.median.1))
+
+write.csv(filter(d.naming, name.median.1 == "low") %>% select(-name.median.1, -name.median.2), "participant_data_pilot_1_2_low_naming1M.csv")
+
+write.csv(filter(d.naming, name.median.1 == "high") %>% select(-name.median.1, -name.median.2), "participant_data_pilot_1_2_high_naming1M.csv")
+
+write.csv(filter(d.naming, name.median.2 == "low") %>% select(-name.median.1, -name.median.2), "participant_data_pilot_1_2_low_naming2M.csv")
+
+write.csv(filter(d.naming, name.median.2 == "high") %>% select(-name.median.1, -name.median.2), "participant_data_pilot_1_2_high_naming2M.csv")
+```
+
+
+To get embeddings:
+(1) cd /Documents/GRADUATE_SCHOOL/Projects/next_kids/embedding_code/condortools
+(2) update stub.yaml manually with correct path
+(3) python expandStub_yaml.py stub.yaml
+(4) python setupJobs_yaml.py master.yaml
+(5) python ../nextmds/generateEmbedding.py 0
+(6) Move 0/ folder to analysis folder with stub.yaml
+
