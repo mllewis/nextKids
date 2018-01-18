@@ -1,0 +1,13 @@
+subjid,date,time,condition,trial_type,trial_num,anchor,left_pic,right_pic,selection
+subj1,1/18/18,13:08,perceptual,practice_trial,1,pepper2,pepper1,pepper2,pepper3
+subj1,1/18/18,13:08,perceptual,practice_trial,2,pepper6,pepper4,pepper5,pepper6
+subj1,1/18/18,13:08,perceptual,critical_trial,1,onion,radish,onion,broccoli
+subj1,1/18/18,13:08,perceptual,critical_trial,2,celery,broccoli,radish,celery
+subj1,1/18/18,13:08,perceptual,critical_trial,3,jalapeno,radish,jalapeno,radish
+molly,1/18/18,13:09,taxonomic,practice_trial,1,pepper2,pepper1,pepper2,pepper3
+molly,1/18/18,13:09,taxonomic,practice_trial,2,pepper6,pepper4,pepper5,pepper6
+molly,1/18/18,13:09,taxonomic,critical_trial,1,radish,potato,radish,corn
+molly,1/18/18,13:09,taxonomic,critical_trial,2,radish,radish,jalapeno,radish
+molly,1/18/18,13:09,taxonomic,critical_trial,3,onion,celery,onion,corn
+molly,1/18/18,13:09,taxonomic,critical_trial,4,corn,radish,corn,broccoli
+molly,1/18/18,13:09,taxonomic,critical_trial,5,radish,jalapeno,radish,pepper1

@@ -8,7 +8,7 @@
 var stimuli_google_sheet_key = "1WC4n9h78wXmSIqmXsJ3_ebNwY_Iz7hTkB2XHfO5CEOw"
 
 // php url for saving data (note: permissions of csv file must be set to write and apply!)
-var php_url = "http://sapir.psych.wisc.edu/~molly/nextKids3/next_practice/nextkids3_save_data.php"
+var php_url = "http://sapir.psych.wisc.edu/~molly/nextKids3/experiment/nextkids3_save_data.php"
 
 var NUMPRACTICE = 2
 var NUMCRITICALTRIALS = 5
